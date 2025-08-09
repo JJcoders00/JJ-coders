@@ -1,155 +1,342 @@
-<!DOCTYPE html>
-<html lang="ml">
+<!doctype html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>JJ CODERS – Learn HTML in Malayalam</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-  <meta keyword="JJ coders, Johan Jomet, HTML, html, Learn html for free, learn html, free html classes" content="Learn HTML for free form JJ coders. It is a company started by Johan Jomet.">
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: radial-gradient(circle at center, #202030, #0f2027);
-      color: white;
-      overflow-x: hidden;
-      position: relative;
-    }
-    .container {
-      text-align: center;
-      padding: 100px 20px 200px;
-      max-width: 900px;
-      margin: auto;
-    }
-    h1 {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 3em;
-      background: linear-gradient(to right, #00c6ff, #0072ff);
-      -webkit-background-clip: text;
-      color: transparent;
-      animation: colorShift 4s infinite linear;
-    }
-    @keyframes colorShift {
-      0% { filter: hue-rotate(0deg); }
-      100% { filter: hue-rotate(360deg); }
-    }
-    .tagline {
-      font-size: 1.5em;
-      font-weight: bold;
-      color: #00ffcc;
-      margin: 20px 0;
-      animation: floatText 2s infinite ease-in-out;
-    }
-    @keyframes floatText {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-8px); }
-    }
-    .highlight {
-      color: #ffd700;
-      text-shadow: 0 0 10px #ff0;
-    }
-    .countdown {
-      margin: 20px;
-      font-size: 1.2em;
-      color: #00ff99;
-    }
-    .btn {
-      margin-top: 120px;
-      padding: 15px 30px;
-      font-size: 1.3em;
-      background: #ff6600;
-      color: white;
-      border: none;
-      border-radius: 12px;
-      cursor: pointer;
-      transition: 0.4s;
-      box-shadow: 0 0 20px #ff6600;
-      text-shadow: 0 0 8px #fff;
-    }
-    .btn:hover {
-      background: #ff3300;
-      transform: scale(1.1);
-      box-shadow: 0 0 30px #ff3300, 0 0 60px #ff6600;
-    }
-    .robot-gif {
-      width: 120px;
-      position: fixed;
-      bottom: 20px;
-      left: 20px;
-      animation: fly 4s ease-in-out infinite alternate;
-    }
-    @keyframes fly {
-      0% { transform: translateY(0px) rotate(0); }
-      50% { transform: translateY(-20px) rotate(5deg); }
-      100% { transform: translateY(0px) rotate(-5deg); }
-    }
-    footer {
-      margin-top: 100px;
-      font-size: 0.9em;
-      color: #bbb;
-    }
-    /* Fireworks */
-    .firework {
-      position: absolute;
-      width: 5px;
-      height: 5px;
-      background: yellow;
-      border-radius: 50%;
-      pointer-events: none;
-      animation: explode 1s ease-out forwards;
-    }
-    @keyframes explode {
-      to {
-        transform: scale(4);
-        opacity: 0;
-      }
-    }
-  </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>JJ Coders — Free HTML Course (Malayalam)</title>
+<meta name="description" content="JJ Coders — Free HTML course taught in Malayalam by Johan Jomet. Join free now." />
+<style>
+  /* ---------- Variables & Reset ---------- */
+  :root{
+    --bg-1: #001320;
+    --bg-2: #0057d9;
+    --accent: #00d2ff;
+    --card: #ffffff;
+    --muted: #6b7280;
+    --maxw: 1100px;
+    --r: 14px;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0;font-family:Segoe UI,Arial,Helvetica,sans-serif;-webkit-font-smoothing:antialiased}
+  body{
+    background: linear-gradient(135deg,var(--bg-1) 0%, #0a2b57 50%, var(--bg-2) 100%);
+    color: #052a4f;
+    line-height:1.45;
+  }
+  a{color:inherit}
+  img{max-width:100%;height:auto;display:block}
+
+  /* ---------- Layout ---------- */
+  .wrap{max-width:var(--maxw);margin:28px auto;padding:20px}
+  header{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:18px}
+  .brand{display:flex;align-items:center;gap:12px}
+  .logo{width:60px;height:60px;border-radius:12px;background:linear-gradient(135deg,var(--accent),#66d9ff);display:flex;align-items:center;justify-content:center;font-weight:800;color:#002}
+  .brand h1{margin:0;font-size:18px;color:#fff}
+  .brand p{margin:0;font-size:12px;color:#dbeafe}
+
+  .header-ctas{display:flex;gap:10px}
+  .btn{
+    background: linear-gradient(90deg,var(--accent), #66d9ff);
+    border: none;padding:10px 14px;border-radius:12px;font-weight:700;cursor:pointer;color:#002;
+    box-shadow:0 10px 30px rgba(1,6,23,0.2);
+  }
+  .btn.outline{background:transparent;border:1px solid rgba(255,255,255,0.12);color:#e6f7ff}
+
+  /* ---------- Hero ---------- */
+  .hero{display:grid;grid-template-columns:1fr 380px;gap:22px;background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));padding:28px;border-radius:var(--r);box-shadow:0 10px 30px rgba(0,0,0,0.25);color:#ffffff}
+  .hero .tag{display:inline-block;padding:6px 12px;background:#ffd269;color:#001;border-radius:999px;font-weight:800;margin-bottom:10px}
+  .hero h2{font-size:32px;margin:0 0 10px}
+  .hero p{color:rgba(230,247,255,0.95);margin:0 0 18px}
+  .hero .ctas{display:flex;gap:12px;flex-wrap:wrap}
+  .statbar{display:flex;gap:12px;justify-content:space-between;margin-top:14px}
+  .stat{background:rgba(255,255,255,0.06);padding:10px;border-radius:10px;text-align:center}
+  .stat b{display:block;font-size:18px;color:#fff}
+  .stat small{display:block;color:#d2eaff;font-size:12px}
+
+  /* ---------- Sections ---------- */
+  .sections{margin-top:20px;display:grid;gap:18px}
+  .card-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .card{background:var(--card);padding:16px;border-radius:12px;box-shadow:0 8px 18px rgba(0,0,0,0.08)}
+  .card h3{margin:0 0 8px;color:#063a82}
+  .card p{margin:0;color:var(--muted)}
+
+  .curriculum{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .project-row{display:flex;gap:12px;flex-wrap:wrap}
+  .project-thumb{width:120px;height:80px;border-radius:10px;background:linear-gradient(135deg,#fff,#f7f9ff);display:flex;align-items:center;justify-content:center;color:#333;font-weight:700}
+
+  .testimonials{display:flex;gap:12px;overflow:auto;padding-bottom:6px}
+  .tcard{min-width:240px;padding:12px;border-radius:10px;background:linear-gradient(180deg,#fff,#f7fbff);box-shadow:0 6px 16px rgba(0,0,0,0.06)}
+  .faq dt{font-weight:700;color:#063a82;margin-top:10px}
+  .faq dd{margin-left:0;color:var(--muted);margin-bottom:10px}
+
+  /* CTA strip */
+  .cta-strip{display:flex;gap:12px;padding:18px;border-radius:12px;align-items:center;justify-content:space-between;background:rgba(255,255,255,0.04)}
+  .cta-left{color:#e6f7ff}
+  .counter{font-weight:800;font-size:20px;color:#fff}
+
+  footer{text-align:center;color:#cfe9ff;margin-top:18px;font-size:13px}
+
+  /* ---------- Modal ---------- */
+  .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.6);z-index:80;padding:18px}
+  .modal.open{display:flex}
+  .modal-card{width:100%;max-width:920px;background:#fff;border-radius:12px;overflow:hidden}
+  .modal-header{display:flex;justify-content:space-between;align-items:center;padding:12px;background:#063a82;color:#fff}
+  .modal-body{height:78vh}
+  .close{background:transparent;border:none;color:#fff;font-size:18px;cursor:pointer}
+
+  /* ---------- Responsive ---------- */
+  @media (max-width:980px){
+    .hero{grid-template-columns:1fr; text-align:center}
+    .card-grid{grid-template-columns:repeat(2,1fr)}
+    .curriculum{grid-template-columns:1fr}
+  }
+  @media (max-width:640px){
+    .card-grid{grid-template-columns:1fr}
+    .header-ctas{display:none}
+  }
+
+  /* tiny animation */
+  .fade-up{animation: fadeUp .6s ease both}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+</style>
 </head>
 <body>
+  <div class="wrap">
+    <!-- header -->
+    <header>
+      <div class="brand">
+        <div class="logo">JJ</div>
+        <div>
+          <h1>JJ CODERS</h1>
+          <p>Free HTML course • Taught in Malayalam • Founder: Johan Jomet</p>
+        </div>
+      </div>
+      <div class="header-ctas">
+        <button class="btn" id="joinTop">Join Free</button>
+        <button class="btn outline" id="contactTop">Contact</button>
+      </div>
+    </header>
 
-  <div class="container">
-    <h1>🚀 JJ CODERS</h1>
-    <div class="tagline">HTML ക്ലാസ് തുടങ്ങുന്നു – July 13 🗓️</div>
-    <p><span class="highlight">Only 100 Seats</span> | ₹699 only 💰</p>
-    <p>പഠിക്കൂ മലയാളത്തിൽ 👨‍💻 – Learn HTML with fun, animations, and projects!</p>
-    <div class="countdown" id="countdown"></div>
+    <!-- hero -->
+    <section class="hero fade-up" aria-labelledby="heroTitle">
+      <div>
+        <span class="tag">FREE HTML COURSE</span>
+        <h2 id="heroTitle">Without coding, it's harder to survive in the future — start now.</h2>
+        <p>JJ Coders teaches kids & beginners how to build websites — step-by-step in Malayalam. No prior knowledge needed. Join for free and get a certificate on completion.</p>
 
-    <button class="btn" onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLScgVulpVxdqD_FyydKUcjMPwMRstzRBtVXkqkA1UufYViD48A/viewform?usp=header'); showFireworks()">👉 JOIN NOW</button>
+        <div class="ctas">
+          <button class="btn" id="joinBtn">Join Free Now</button>
+          <button class="btn outline" id="viewCurr">View Curriculum</button>
+        </div>
 
-    <footer>
-      Created with 💙 by Johan Jomet © 2025<br>JJ CODERS – Future Coders of Kerala
-    </footer>
+        <div class="statbar">
+          <div class="stat"><b id="studentCount">10</b><small>Students enrolled</small></div>
+          <div class="stat"><b>Founder</b><small>Johan Jomet</small></div>
+          <div class="stat"><b>100</b><small>Target seats</small></div>
+        </div>
+      </div>
+
+      <aside class="hero-right">
+        <div style="text-align:center">
+          <div style="font-size:14px;color:#dff">🎓 Lessons in Malayalam</div>
+          <div style="height:10px"></div>
+          <div style="font-size:13px;color:#e6f7ff">Founder & CEO: <strong>Johan Jomet</strong></div>
+        </div>
+
+        <div style="margin-top:18px;width:100%;text-align:center">
+          <button class="btn outline" id="openModal">Register on site</button>
+        </div>
+      </aside>
+    </section>
+
+    <!-- main sections -->
+    <div class="sections">
+
+      <!-- features -->
+      <div class="card-grid fade-up">
+        <div class="card"><h3>Hands-on Projects</h3><p>Build real pages from day one — portfolio, mini-games, and interactive pages.</p></div>
+        <div class="card"><h3>Friendly Teaching</h3><p>Lessons explained simply in Malayalam by Johan — patient and fun.</p></div>
+        <div class="card"><h3>Certificate</h3><p>Get a certificate on completion — great for school profiles and parents.</p></div>
+      </div>
+
+      <!-- curriculum -->
+      <section class="card fade-up">
+        <h3>Curriculum — What you'll learn</h3>
+        <div class="curriculum">
+          <div>
+            <p><strong>Module 1 – HTML Basics</strong><br>Tags, structure, links, images.</p>
+            <p><strong>Module 2 – Styling</strong><br>Colors, fonts, layout basics with CSS.</p>
+            <p><strong>Module 3 – Interaction</strong><br>Buttons, navigation, simple scripts.</p>
+          </div>
+          <div>
+            <p><strong>Module 4 – Publish</strong><br>Host your website on GitHub Pages.</p>
+            <p><strong>Module 5 – Final Project</strong><br>Create a portfolio or project to show.</p>
+            <p style="color:var(--muted)">All modules include templates and project files.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- projects -->
+      <section class="card fade-up">
+        <h3>Sample Projects</h3>
+        <div class="project-row" aria-hidden="true">
+          <div class="project-thumb">Portfolio</div>
+          <div class="project-thumb">Mini-game</div>
+          <div class="project-thumb">Interactive page</div>
+          <div class="project-thumb">Photo gallery</div>
+        </div>
+      </section>
+
+      <!-- testimonials -->
+      <section class="card fade-up">
+        <h3>Testimonials</h3>
+        <div class="testimonials" id="testimonials">
+          <div class="tcard"><p><strong>"My child built a website in 2 days."</strong><br><small>- Parent</small></p></div>
+          <div class="tcard"><p><strong>"Johan explains simply in Malayalam."</strong><br><small>- Parent</small></p></div>
+          <div class="tcard"><p><strong>"Fun and practical lessons."</strong><br><small>- Student</small></p></div>
+        </div>
+      </section>
+
+      <!-- faq + CTA -->
+      <section class="card fade-up" style="display:grid;grid-template-columns:1fr 320px;gap:14px;align-items:start">
+        <div>
+          <h3>FAQ</h3>
+          <dl class="faq">
+            <dt>Is it really free?</dt><dd>Yes — introductory HTML course is free now.</dd>
+            <dt>What age is suitable?</dt><dd>6 to 14 recommended, but open for beginners of any age.</dd>
+            <dt>Do I need a laptop?</dt><dd>A phone works but a laptop is better for practice.</dd>
+          </dl>
+        </div>
+
+        <aside style="background:linear-gradient(180deg,#fff,#f6fbff);padding:14px;border-radius:10px">
+          <h3 style="margin-top:0;color:#063a82">Ready to Learn?</h3>
+          <p style="color:#284b7b">Join for free — sign-up opens in a new tab, or register right here on the site.</p>
+          <div style="display:flex;gap:10px;margin-top:12px">
+            <button class="btn" id="joinFormBtn">Join Free — Form</button>
+            <button class="btn outline" id="registerInline">Register Here</button>
+          </div>
+          <p style="margin-top:12px;color:var(--muted)">Contact: <strong id="contactPhone">+91 98765 43210</strong></p>
+        </aside>
+      </section>
+
+      <!-- CTA strip with counter -->
+      <section class="cta-strip fade-up">
+        <div class="cta-left">
+          <div style="font-weight:700;color:#fff">Seats filling fast — join the free course today</div>
+          <div style="color:var(--muted);font-size:13px">No coding experience required — learn in Malayalam</div>
+        </div>
+        <div style="text-align:right">
+          <div class="counter" id="liveCounter">0</div>
+          <div style="color:var(--muted);font-size:12px">students signed up</div>
+        </div>
+      </section>
+
+    </div>
+
+    <footer>© <span id="year"></span> JJ Coders — Founder: Johan Jomet • Classes in Malayalam</footer>
   </div>
 
-  <img src="https://media.tenor.com/XN0-0MgDdcUAAAAi/robot-hello.gif" class="robot-gif" alt="robot" />
+  <!-- modal (embedded form) -->
+  <div class="modal" id="modal">
+    <div class="modal-card" role="dialog" aria-modal="true">
+      <div class="modal-header">
+        <div>Register — JJ Coders (embedded)</div>
+        <button class="close" id="modalClose">✕</button>
+      </div>
+      <div class="modal-body">
+        <iframe id="formFrame" class="modal-frame" src="" style="width:100%;height:100%;border:0"></iframe>
+      </div>
+    </div>
+  </div>
 
-  <script>
-  // Fireworks and Sound
-  const popSound = new Audio("https://cdn.pixabay.com/download/audio/2021/08/04/audio_7b4f07e5a1.mp3?filename=firework-explosion-45360.mp3");
+<script>
+/* ----------------- CONFIG - set these ----------------- */
+const SHEET_ID = "1588cRNSYHBxWQqWlxxTgI3AswmArCHEAUg9KzXzzmRc"; // e.g. 1aBcD... (from the Google Sheet URL)
+const FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLScgVulpVxdqD_FyydKUcjMPwMRstzRBtVXkqkA1UufYViD48A/viewform";
+/* ---------------------------------------------------- */
 
-  function showFireworksAndRedirect() {
-    for (let i = 0; i < 20; i++) {
-      const div = document.createElement('div');
-      div.className = 'firework';
-      div.style.left = Math.random() * window.innerWidth + 'px';
-      div.style.top = Math.random() * window.innerHeight + 'px';
-      div.style.background = `hsl(${Math.random() * 360}, 100%, 60%)`;
-      document.body.appendChild(div);
-      popSound.play();
-      setTimeout(() => div.remove(), 1000);
-    }
+document.getElementById('year').textContent = new Date().getFullYear();
+document.getElementById('contactPhone').textContent = "+91 94460 71043"; // optionally change
 
-    // Wait for 1 second before opening the form
-    setTimeout(() => {
-      window.open('https://docs.google.com/forms/d/e/1FAIpQLSdCS7NyqNi5a1zOYt2C3FJXwGx62c9vsJlCUOexA_0_fVBlow/viewform?pli=1', '_blank');
-    }, 1000);
+// CTA buttons open form in new tab
+document.querySelectorAll('#joinTop, #joinBtn, #joinFormBtn').forEach(b=>{
+  b.addEventListener('click', ()=> window.open(FORM_URL, '_blank'));
+});
+
+// Register inline (modal)
+const modal = document.getElementById('modal');
+const frame = document.getElementById('formFrame');
+document.getElementById('openModal').addEventListener('click', ()=> {
+  frame.src = FORM_URL + "?embedded=true";
+  modal.classList.add('open');
+});
+document.getElementById('modalClose').addEventListener('click', ()=> {
+  modal.classList.remove('open'); frame.src = "";
+});
+document.getElementById('registerInline').addEventListener('click', ()=> {
+  frame.src = FORM_URL + "?embedded=true";
+  modal.classList.add('open');
+});
+modal.addEventListener('click', (e)=> { if(e.target===modal){ modal.classList.remove('open'); frame.src=""; }});
+
+// Testimonials auto-scroll simple
+(function rotate(){
+  const wrap = document.getElementById('testimonials');
+  let offset = 0;
+  setInterval(()=> {
+    offset += 260;
+    if(offset > wrap.scrollWidth - wrap.clientWidth) offset = 0;
+    wrap.scrollTo({ left:offset, behavior:'smooth'});
+  }, 3000);
+})();
+
+/* ----------------- Live counter from Google Sheet -----------------
+  Uses Google Visualization JSON endpoint (no API key needed) for public sheets.
+  Sheet must be set to "Anyone with the link can view".
+  It returns a JS-like JSON which we parse to count rows.
+  NOTE: replace SHEET_ID above.
+------------------------------------------------------------------*/
+async function fetchStudentCount() {
+  if (!SHEET_ID || SHEET_ID.includes("REPLACE_WITH")) {
+    console.warn("SHEET_ID not set. Set SHEET_ID in script to enable live counter.");
+    return displayFallbackCount();
   }
-</script>
+  try {
+    // This endpoint returns a JS wrapper: "/*O_o*/\ngoogle.visualization.Query.setResponse(...);"
+    const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?gid=0`;
+    const res = await fetch(url, {cache: "no-store"});
+    const text = await res.text();
+    // Extract JSON from the wrapper
+    const jsonText = text.substring(text.indexOf('({') , text.lastIndexOf('})')+2);
+    const obj = JSON.parse(jsonText);
+    // rows are in obj.table.rows
+    const rows = obj.table.rows || [];
+    // If the sheet has a header row, subtract 1; but Form responses normally add header automatically
+    const count = rows.length;
+    updateCounts(count);
+  } catch (err) {
+    console.error("Failed to fetch sheet:", err);
+    displayFallbackCount();
+  }
+}
+function updateCounts(n){
+  const student = document.getElementById('studentCount');
+  const live = document.getElementById('liveCounter');
+  student.textContent = n;
+  live.textContent = n;
+}
+function displayFallbackCount(){
+  // fallback if fetch fails or sheet not set: try cached localStorage or show 0
+  const cached = localStorage.getItem('jj_students_count') || 0;
+  updateCounts(cached);
+}
 
+/* refresh every 45 seconds */
+fetchStudentCount();
+setInterval(fetchStudentCount, 45000);
+
+/* tiny fade-in delays */
+document.querySelectorAll('.fade-up').forEach((el,i)=> el.style.animationDelay = (i*80)+'ms');
+</script>
 </body>
 </html>
