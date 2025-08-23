@@ -3,340 +3,694 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>JJ Coders — Free HTML Course (Malayalam)</title>
-<meta name="description" content="JJ Coders — Free HTML course taught in Malayalam by Johan Jomet. Join free now." />
+<title>JJ Coders — HTML & CSS for Kids · Interactive Studio</title>
+<meta name="description" content="JJ Coders — project-based HTML & CSS courses for kids. Animation-rich interactive website." />
+<link rel="icon" href="logo.jpg" />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;800&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<!-- Animation libs -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js" defer></script>
+<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js" defer></script>
+
 <style>
-  /* ---------- Variables & Reset ---------- */
-  :root{
-    --bg-1: #001320;
-    --bg-2: #0057d9;
-    --accent: #00d2ff;
-    --card: #ffffff;
-    --muted: #6b7280;
-    --maxw: 1100px;
-    --r: 14px;
-  }
-  *{box-sizing:border-box}
-  html,body{height:100%;margin:0;font-family:Segoe UI,Arial,Helvetica,sans-serif;-webkit-font-smoothing:antialiased}
-  body{
-    background: linear-gradient(135deg,var(--bg-1) 0%, #0a2b57 50%, var(--bg-2) 100%);
-    color: #052a4f;
-    line-height:1.45;
-  }
-  a{color:inherit}
-  img{max-width:100%;height:auto;display:block}
+:root{
+  --bg:#071126; --card:#071827; --muted:#9aa8c0; --text:#e8eef8;
+  --brand1:#6d28d9; --brand2:#2563eb; --accent:#22d3ee; --lime:#a3e635;
+  --glass: rgba(255,255,255,0.03);
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;scroll-behavior:smooth}
+a{color:var(--accent);text-decoration:none}
+.container{max-width:1200px;margin:0 auto;padding:0 20px}
 
-  /* ---------- Layout ---------- */
-  .wrap{max-width:var(--maxw);margin:28px auto;padding:20px}
-  header{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:18px}
-  .brand{display:flex;align-items:center;gap:12px}
-  .logo{width:60px;height:60px;border-radius:12px;background:linear-gradient(135deg,var(--accent),#66d9ff);display:flex;align-items:center;justify-content:center;font-weight:800;color:#002}
-  .brand h1{margin:0;font-size:18px;color:#fff}
-  .brand p{margin:0;font-size:12px;color:#dbeafe}
+/* Background particle canvas */
+#particle-canvas{position:fixed;inset:0;z-index:-3;pointer-events:none}
 
-  .header-ctas{display:flex;gap:10px}
-  .btn{
-    background: linear-gradient(90deg,var(--accent), #66d9ff);
-    border: none;padding:10px 14px;border-radius:12px;font-weight:700;cursor:pointer;color:#002;
-    box-shadow:0 10px 30px rgba(1,6,23,0.2);
-  }
-  .btn.outline{background:transparent;border:1px solid rgba(255,255,255,0.12);color:#e6f7ff}
+/* dynamic colorful blur layers */
+.bg-layer{position:fixed;inset:0;z-index:-2;pointer-events:none;overflow:hidden}
+.bg-layer .blob{position:absolute;border-radius:50%;filter:blur(80px);opacity:.16;mix-blend-mode:screen}
+.bg-layer .blob.b1{width:900px;height:900px;left:-200px;top:-220px;background:linear-gradient(135deg,var(--brand2),var(--brand1));animation:blobmove 28s ease-in-out infinite}
+.bg-layer .blob.b2{width:700px;height:700px;right:-150px;bottom:-180px;background:linear-gradient(135deg,#22d3ee,#a3e635);animation:blobmove 22s ease-in-out infinite}
+@keyframes blobmove{0%{transform:translateY(0) scale(1)}50%{transform:translateY(30px) scale(1.08)}100%{transform:translateY(0) scale(1)}}
 
-  /* ---------- Hero ---------- */
-  .hero{display:grid;grid-template-columns:1fr 380px;gap:22px;background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));padding:28px;border-radius:var(--r);box-shadow:0 10px 30px rgba(0,0,0,0.25);color:#ffffff}
-  .hero .tag{display:inline-block;padding:6px 12px;background:#ffd269;color:#001;border-radius:999px;font-weight:800;margin-bottom:10px}
-  .hero h2{font-size:32px;margin:0 0 10px}
-  .hero p{color:rgba(230,247,255,0.95);margin:0 0 18px}
-  .hero .ctas{display:flex;gap:12px;flex-wrap:wrap}
-  .statbar{display:flex;gap:12px;justify-content:space-between;margin-top:14px}
-  .stat{background:rgba(255,255,255,0.06);padding:10px;border-radius:10px;text-align:center}
-  .stat b{display:block;font-size:18px;color:#fff}
-  .stat small{display:block;color:#d2eaff;font-size:12px}
+/* top nav */
+header.nav{position:sticky;top:0;z-index:120;backdrop-filter: blur(8px);background:linear-gradient(180deg,rgba(7,17,38,.6),rgba(7,17,38,.45));border-bottom:1px solid rgba(255,255,255,.03)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
+.brand{display:flex;align-items:center;gap:12px}
+.brand img{width:46px;height:46px;border-radius:10px;object-fit:cover;box-shadow:0 8px 28px rgba(4,10,25,.7)}
+.brand b{font-family:Poppins, sans-serif}
+.nav-links a{color:var(--text);opacity:.92;margin-left:18px}
+.join-btn{padding:10px 14px;border-radius:12px;background:linear-gradient(90deg,var(--brand2),var(--brand1));font-weight:700;color:#fff}
 
-  /* ---------- Sections ---------- */
-  .sections{margin-top:20px;display:grid;gap:18px}
-  .card-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-  .card{background:var(--card);padding:16px;border-radius:12px;box-shadow:0 8px 18px rgba(0,0,0,0.08)}
-  .card h3{margin:0 0 8px;color:#063a82}
-  .card p{margin:0;color:var(--muted)}
+/* curtain + progress */
+.curtain{position:fixed;inset:0;background:#071126;z-index:200;pointer-events:none}
+.progress-bar{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--accent),var(--lime));z-index:201}
 
-  .curriculum{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-  .project-row{display:flex;gap:12px;flex-wrap:wrap}
-  .project-thumb{width:120px;height:80px;border-radius:10px;background:linear-gradient(135deg,#fff,#f7f9ff);display:flex;align-items:center;justify-content:center;color:#333;font-weight:700}
+/* hero */
+.hero{display:grid;grid-template-columns:1fr 520px;gap:28px;align-items:center;padding:84px 0}
+@media (max-width:980px){.hero{grid-template-columns:1fr;padding:48px 0}.hero .visuals{order:-1}}
+.hero h1{font-family:Poppins, sans-serif;font-weight:800;font-size:clamp(30px,6vw,56px);line-height:1;margin:0}
+.lead{color:var(--muted);margin-top:12px;font-size:1.05rem}
+.cta-row{margin-top:18px;display:flex;gap:12px;flex-wrap:wrap}
+.btn{padding:12px 16px;border-radius:12px;background:linear-gradient(90deg,var(--brand2),var(--brand1));color:#fff;font-weight:700;display:inline-block}
+.btn.ghost{background:transparent;border:1px solid rgba(255,255,255,.06)}
 
-  .testimonials{display:flex;gap:12px;overflow:auto;padding-bottom:6px}
-  .tcard{min-width:240px;padding:12px;border-radius:10px;background:linear-gradient(180deg,#fff,#f7fbff);box-shadow:0 6px 16px rgba(0,0,0,0.06)}
-  .faq dt{font-weight:700;color:#063a82;margin-top:10px}
-  .faq dd{margin-left:0;color:var(--muted);margin-bottom:10px}
+/* visual card - multiple animated images inside */
+.visuals{display:grid;grid-template-rows:1fr auto;gap:12px}
+.visual-card{background:var(--glass);border-radius:16px;padding:14px;box-shadow:0 30px 60px rgba(0,0,0,.6);min-height:360px;display:flex;flex-direction:column;gap:10px;align-items:center;justify-content:center;overflow:hidden;position:relative}
 
-  /* CTA strip */
-  .cta-strip{display:flex;gap:12px;padding:18px;border-radius:12px;align-items:center;justify-content:space-between;background:rgba(255,255,255,0.04)}
-  .cta-left{color:#e6f7ff}
-  .counter{font-weight:800;font-size:20px;color:#fff}
+/* animated image blocks inside visual card */
+.anim-img{width:100%;max-width:420px;height:220px;border-radius:12px;overflow:hidden;position:relative;display:block}
+.anim-img img{width:100%;height:100%;object-fit:cover;display:block;transform-origin:center;transition:transform .6s cubic-bezier(.2,.9,.3,1)}
 
-  footer{text-align:center;color:#cfe9ff;margin-top:18px;font-size:13px}
+/* floating SVG icons */
+.floaticon{position:absolute;width:68px;height:68px;display:grid;place-items:center;border-radius:12px;background:linear-gradient(135deg,var(--brand2),var(--brand1));box-shadow:0 12px 30px rgba(2,6,23,.6);color:#fff;font-weight:800}
+.floaticon.i1{left:24px;top:24px;transform:translateZ(0)}
+.floaticon.i2{right:24px;top:34px}
+.floaticon.i3{right:20px;bottom:20px;opacity:.95}
 
-  /* ---------- Modal ---------- */
-  .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.6);z-index:80;padding:18px}
-  .modal.open{display:flex}
-  .modal-card{width:100%;max-width:920px;background:#fff;border-radius:12px;overflow:hidden}
-  .modal-header{display:flex;justify-content:space-between;align-items:center;padding:12px;background:#063a82;color:#fff}
-  .modal-body{height:78vh}
-  .close{background:transparent;border:none;color:#fff;font-size:18px;cursor:pointer}
+/* trust badges row */
+.trust{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
+.trust .chip{background:linear-gradient(180deg,rgba(255,255,255,.02),rgba(255,255,255,.01));padding:8px 12px;border-radius:12px;color:var(--muted);font-weight:700;display:flex;align-items:center;gap:8px}
 
-  /* ---------- Responsive ---------- */
-  @media (max-width:980px){
-    .hero{grid-template-columns:1fr; text-align:center}
-    .card-grid{grid-template-columns:repeat(2,1fr)}
-    .curriculum{grid-template-columns:1fr}
-  }
-  @media (max-width:640px){
-    .card-grid{grid-template-columns:1fr}
-    .header-ctas{display:none}
-  }
+/* sections */
+section{padding:64px 0}
+.section-title{font-family:Poppins,sans-serif;margin:0 0 10px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
 
-  /* tiny animation */
-  .fade-up{animation: fadeUp .6s ease both}
-  @keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+/* card styles */
+.card{background:rgba(255,255,255,.02);border-radius:14px;padding:18px;border:1px solid rgba(255,255,255,.03);overflow:hidden;transition:transform .28s ease,box-shadow .28s}
+.card:hover{transform:translateY(-8px);box-shadow:0 30px 80px rgba(0,0,0,.6)}
+.glass{backdrop-filter:blur(8px);background:linear-gradient(180deg,rgba(255,255,255,.01),rgba(255,255,255,.02))}
+
+/* fancy buttons (liquid hover) */
+.liquid{
+  display:inline-block;padding:12px 18px;border-radius:14px;color:#fff;font-weight:800;background:linear-gradient(90deg,var(--brand2),var(--brand1));
+  position:relative;overflow:hidden;
+}
+.liquid:after{content:'';position:absolute;left:-30%;top:-40%;width:140%;height:140%;background:radial-gradient(circle at 30% 30%, rgba(255,255,255,.08), transparent 20%);transform:translateX(-20%);transition:transform .8s cubic-bezier(.2,.9,.3,1)}
+.liquid:hover:after{transform:translateX(12%)}
+
+/* hover microinteraction icons */
+.iconbtn{display:inline-flex;align-items:center;gap:10px;padding:10px;border-radius:12px;border:1px solid rgba(255,255,255,.04);transition:transform .18s;cursor:pointer}
+.iconbtn:hover{transform:translateY(-6px)}
+
+/* SVG doodle styles */
+.doodle{width:220px;height:140px}
+.doodle path{stroke:#fff;stroke-width:3;fill:none;stroke-dasharray:600;stroke-dashoffset:600;opacity:.95}
+
+/* flipbook stop motion */
+.flipbook{width:280px;height:160px;border-radius:12px;overflow:hidden;background:#000;position:relative}
+.flipbook img{position:absolute;top:0;left:0;width:1680px;height:160px;animation:flip 1s steps(9) infinite}
+@keyframes flip{from{transform:translateX(0)}to{transform:translateX(-1400px)}}
+
+/* faux 3D cube small */
+.icon-3d{perspective:900px}
+.cube{width:120px;height:120px;transform-style:preserve-3d;position:relative;margin:auto}
+.face{position:absolute;inset:0;border-radius:12px;display:grid;place-items:center;color:#fff;font-weight:900;background:linear-gradient(135deg,var(--brand2),var(--brand1))}
+
+/* horizontal scroller */
+.hscroll{display:flex;gap:14px;overflow-x:auto;padding:8px 4px;scroll-snap-type:x mandatory}
+.hscroll .snap{min-width:260px;scroll-snap-align:start}
+
+/* gallery-like animated images next to content (not a gallery) */
+.inline-anim{display:flex;gap:12px;align-items:center}
+.inline-anim .imgwrap{width:180px;height:120px;overflow:hidden;border-radius:12px;flex:0 0 180px}
+.inline-anim img{width:100%;height:100%;object-fit:cover;transform-origin:center;transition:transform .8s cubic-bezier(.2,.9,.3,1)}
+
+/* testimonials */
+.carousel{position:relative;padding:18px;border-radius:12px;background:linear-gradient(180deg,rgba(255,255,255,.01),rgba(255,255,255,.02))}
+.slide{display:none}
+.slide.active{display:block;font-size:1.05rem}
+
+/* lightbox */
+.lightbox{position:fixed;inset:0;background:rgba(1,6,15,.9);display:none;place-items:center;z-index:9999}
+.lightbox img{max-width:92vw;max-height:86vh;border-radius:10px;box-shadow:0 30px 80px rgba(0,0,0,.9)}
+
+/* forms */
+.form-embed iframe{width:100%;height:720px;border:0;border-radius:10px}
+
+/* footer */
+footer{padding:36px 0;border-top:1px solid rgba(255,255,255,.03);margin-top:20px}
+.footer-inner{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+
+/* whatsapp FAB */
+.fab{position:fixed;right:18px;bottom:18px;width:56px;height:56px;border-radius:50%;display:grid;place-items:center;color:#fff;background:radial-gradient(circle at 30% 30%,#25D366,#128C7E);box-shadow:0 20px 60px rgba(0,0,0,.6);z-index:120}
+
+/* small screens fixes */
+@media (max-width:720px){
+  .hero{grid-template-columns:1fr}
+  .visual-card{min-height:220px}
+  .gift{display:none}
+}
 </style>
 </head>
 <body>
-  <div class="wrap">
-    <!-- header -->
-    <header>
-      <div class="brand">
-        <div class="logo">JJ</div>
-        <div>
-          <h1>JJ CODERS</h1>
-          <p>Free HTML course • Taught in Malayalam • Founder: Johan Jomet</p>
-        </div>
-      </div>
-      <div class="header-ctas">
-        <button class="btn" id="joinTop">Join Free</button>
-        <button class="btn outline" id="contactTop">Contact</button>
-      </div>
-    </header>
 
-    <!-- hero -->
-    <section class="hero fade-up" aria-labelledby="heroTitle">
-      <div>
-        <span class="tag">FREE HTML COURSE</span>
-        <h2 id="heroTitle">Without coding, it's harder to survive in the future — start now.</h2>
-        <p>JJ Coders teaches kids & beginners how to build websites — step-by-step in Malayalam. No prior knowledge needed. Join for free and get a certificate on completion.</p>
+<!-- animated background blobs and particles -->
+<div class="bg-layer" aria-hidden="true">
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
+</div>
+<canvas id="particle-canvas" aria-hidden="true"></canvas>
 
-        <div class="ctas">
-          <button class="btn" id="joinBtn">Join Free Now</button>
-          <button class="btn outline" id="viewCurr">View Curriculum</button>
-        </div>
+<div class="progress-bar" id="prog"></div>
+<div class="curtain" id="curtain"></div>
 
-        <div class="statbar">
-          <div class="stat"><b id="studentCount">10</b><small>Students enrolled</small></div>
-          <div class="stat"><b>Founder</b><small>Johan Jomet</small></div>
-          <div class="stat"><b>100</b><small>Target seats</small></div>
-        </div>
-      </div>
+<!-- NAV -->
+<header class="nav">
+  <div class="container nav-inner">
+    <div class="brand">
+      <img src="logo.jpg" alt="JJ Coders logo">
+      <b>JJ Coders</b>
+    </div>
+    <nav class="nav-links" aria-label="Main navigation">
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#courses">Courses</a>
+      <a href="#showcase">Showcase</a>
+      <a href="#join" class="join-btn">Join</a>
+    </nav>
+  </div>
+</header>
 
-      <aside class="hero-right">
-        <div style="text-align:center">
-          <div style="font-size:14px;color:#dff">🎓 Lessons in Malayalam</div>
-          <div style="height:10px"></div>
-          <div style="font-size:13px;color:#e6f7ff">Founder & CEO: <strong>Johan Jomet</strong></div>
-        </div>
+<main class="container" id="home" style="padding-top:20px">
 
-        <div style="margin-top:18px;width:100%;text-align:center">
-          <button class="btn outline" id="openModal">Register on site</button>
-        </div>
-      </aside>
-    </section>
+  <!-- HERO -->
+  <section class="hero" id="hero" aria-label="Hero">
+    <div>
+      <h1>Learn <span style="background:linear-gradient(90deg,var(--brand2),var(--brand1));-webkit-background-clip:text;color:transparent;font-weight:900">HTML & CSS</span> — Build playful websites</h1>
+      <p class="lead">Hands-on project lessons for kids. Build portfolio pages, mini-games, and animated micro-interactions that make learning fun.</p>
 
-    <!-- main sections -->
-    <div class="sections">
-
-      <!-- features -->
-      <div class="card-grid fade-up">
-        <div class="card"><h3>Hands-on Projects</h3><p>Build real pages from day one — portfolio, mini-games, and interactive pages.</p></div>
-        <div class="card"><h3>Friendly Teaching</h3><p>Lessons explained simply in Malayalam by Johan — patient and fun.</p></div>
-        <div class="card"><h3>Certificate</h3><p>Get a certificate on completion — great for school profiles and parents.</p></div>
+      <div class="cta-row">
+        <a class="btn liquid" href="#join">Enroll via Google Form</a>
+        <a class="btn ghost" href="#showcase">Explore Interactions</a>
       </div>
 
-      <!-- curriculum -->
-      <section class="card fade-up">
-        <h3>Curriculum — What you'll learn</h3>
-        <div class="curriculum">
-          <div>
-            <p><strong>Module 1 – HTML Basics</strong><br>Tags, structure, links, images.</p>
-            <p><strong>Module 2 – Styling</strong><br>Colors, fonts, layout basics with CSS.</p>
-            <p><strong>Module 3 – Interaction</strong><br>Buttons, navigation, simple scripts.</p>
+      <div class="trust" aria-hidden="true">
+        <div class="chip"><i class="fa fa-graduation-cap"></i>&nbsp;350+ Students</div>
+        <div class="chip"><i class="fa fa-clock"></i>&nbsp;1200+ Hours</div>
+        <div class="chip"><i class="fa fa-star"></i>&nbsp;4.8 Rating</div>
+      </div>
+
+      <!-- self-drawing underline -->
+      <svg class="line-svg" viewBox="0 0 800 100" preserveAspectRatio="none" aria-hidden>
+        <path id="heroLine" class="line-path" d="M20,80 C160,20 220,20 360,70 S600,140 780,30"></path>
+      </svg>
+
+      <div style="margin-top:12px;display:flex;align-items:center;gap:12px">
+        <div class="inline-anim" style="align-items:center">
+          <div class="imgwrap" style="width:84px;height:84px;border-radius:12px;overflow:hidden"><img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=600" alt="teacher"></div>
+          <div style="color:var(--muted)">Small batches, friendly teacher — focused on progress.</div>
+        </div>
+      </div>
+    </div>
+
+    <aside class="visuals">
+      <div class="visual-card glass" id="visualCard">
+        <!-- animated images everywhere: multiple layers -->
+        <div class="anim-img" id="heroAnim">
+          <img src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?q=80&w=1200" alt="kids coding" id="heroImg">
+          <!-- floating icons -->
+          <div class="floaticon i1" id="float1" aria-hidden><i class="fa fa-code"></i></div>
+          <div class="floaticon i2" id="float2" aria-hidden><i class="fa fa-paint-brush"></i></div>
+          <div class="floaticon i3" id="float3" aria-hidden><i class="fa fa-smile"></i></div>
+        </div>
+
+        <!-- animated Lottie small -->
+        <div style="width:100%;display:flex;gap:10px;align-items:center;justify-content:center;margin-top:6px">
+          <lottie-player src="https://assets10.lottiefiles.com/packages/lf20_m9xyg3.json" background="transparent" speed="1" loop autoplay style="width:110px;height:110px"></lottie-player>
+          <div style="text-align:left">
+            <strong style="display:block">Interactive lessons</strong>
+            <span style="color:var(--muted)">Short, project-focused classes with creative outcomes.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- small cards under visuals -->
+      <div style="display:flex;gap:10px;justify-content:center">
+        <div class="card" style="width:100%;max-width:240px">
+          <h4 style="margin:6px 0">Beginner Friendly</h4>
+          <p style="color:var(--muted)">Start with basics and build confidence.</p>
+        </div>
+        <div class="card" style="width:100%;max-width:240px">
+          <h4 style="margin:6px 0">Project Driven</h4>
+          <p style="color:var(--muted)">Each week ends with a finished mini-project.</p>
+        </div>
+      </div>
+    </aside>
+  </section>
+
+  <!-- ABOUT (animated images + isometric) -->
+  <section id="about" aria-label="About">
+    <h2 class="section-title">About JJ Coders</h2>
+    <p class="lead">We make coding accessible, playful and creative. The website itself demonstrates the interactions you’ll learn to build.</p>
+
+    <div class="grid">
+      <div class="card glass">
+        <h3>Mission</h3>
+        <p style="color:var(--muted)">Teach web fundamentals using creative projects and animated interactions that make learning addictive (in a good way).</p>
+        <div style="margin-top:12px" class="inline-anim">
+          <div class="imgwrap"><img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=800" alt="project"></div>
+          <div style="color:var(--muted)">Real projects • Real confidence</div>
+        </div>
+      </div>
+
+      <div class="card neumo">
+        <h3>Timeline (animated)</h3>
+        <div style="margin-top:10px">
+          <div class="card" style="padding:12px;margin-bottom:8px;display:flex;gap:10px;align-items:center">
+            <div style="width:56px;height:56px;border-radius:10px;background:linear-gradient(90deg,var(--brand2),var(--brand1));display:grid;place-items:center">23</div>
+            <div><strong>2023</strong><div style="color:var(--muted)">Started weekend batches</div></div>
+          </div>
+          <div class="card" style="padding:12px;display:flex;gap:10px;align-items:center">
+            <div style="width:56px;height:56px;border-radius:10px;background:linear-gradient(90deg,var(--accent),var(--lime));display:grid;place-items:center">24</div>
+            <div><strong>2024</strong><div style="color:var(--muted)">350+ learners</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card clay">
+        <h3>Team & Coach</h3>
+        <img src="johan.jpg" alt="coach" style="border-radius:10px;margin-top:8px">
+        <p style="color:var(--muted);margin-top:8px">Patient, playful, and focused on progress.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- COURSES with an animated image for each card -->
+  <section id="courses" aria-label="Courses">
+    <h2 class="section-title">Courses</h2>
+    <p class="lead">Three starter tracks — each card has its own animated illustration that loops and reacts to hover.</p>
+
+    <div class="grid">
+      <div class="card glass" id="course-html">
+        <div style="display:flex;gap:12px;align-items:center">
+          <div style="width:120px;height:90px;border-radius:10px;overflow:hidden">
+            <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200" alt="HTML" class="course-img">
+            <!-- small animated overlay -->
+            <svg style="position:relative;top:-90px;left:0;width:100%;height:90px;pointer-events:none"><rect width="100%" height="100%" fill="url(#overlay)"></rect></svg>
           </div>
           <div>
-            <p><strong>Module 4 – Publish</strong><br>Host your website on GitHub Pages.</p>
-            <p><strong>Module 5 – Final Project</strong><br>Create a portfolio or project to show.</p>
-            <p style="color:var(--muted)">All modules include templates and project files.</p>
+            <h3 style="margin:0">HTML Fundamentals</h3>
+            <p style="color:var(--muted);margin:6px 0">Semantic HTML, forms, images — build your first website.</p>
+            <div style="display:flex;gap:8px">
+              <div class="iconbtn" role="button"><i class="fa fa-play"></i>&nbsp;Preview</div>
+              <a class="liquid" href="#join">Enroll</a>
+            </div>
           </div>
         </div>
-      </section>
+      </div>
 
-      <!-- projects -->
-      <section class="card fade-up">
-        <h3>Sample Projects</h3>
-        <div class="project-row" aria-hidden="true">
-          <div class="project-thumb">Portfolio</div>
-          <div class="project-thumb">Mini-game</div>
-          <div class="project-thumb">Interactive page</div>
-          <div class="project-thumb">Photo gallery</div>
-        </div>
-      </section>
-
-      <!-- testimonials -->
-      <section class="card fade-up">
-        <h3>Testimonials</h3>
-        <div class="testimonials" id="testimonials">
-          <div class="tcard"><p><strong>"My child built a website in 2 days."</strong><br><small>- Parent</small></p></div>
-          <div class="tcard"><p><strong>"Johan explains simply in Malayalam."</strong><br><small>- Parent</small></p></div>
-          <div class="tcard"><p><strong>"Fun and practical lessons."</strong><br><small>- Student</small></p></div>
-        </div>
-      </section>
-
-      <!-- faq + CTA -->
-      <section class="card fade-up" style="display:grid;grid-template-columns:1fr 320px;gap:14px;align-items:start">
-        <div>
-          <h3>FAQ</h3>
-          <dl class="faq">
-            <dt>Is it really free?</dt><dd>Yes — introductory HTML course is free now.</dd>
-            <dt>What age is suitable?</dt><dd>6 to 14 recommended, but open for beginners of any age.</dd>
-            <dt>Do I need a laptop?</dt><dd>A phone works but a laptop is better for practice.</dd>
-          </dl>
-        </div>
-
-        <aside style="background:linear-gradient(180deg,#fff,#f6fbff);padding:14px;border-radius:10px">
-          <h3 style="margin-top:0;color:#063a82">Ready to Learn?</h3>
-          <p style="color:#284b7b">Join for free — sign-up opens in a new tab, or register right here on the site.</p>
-          <div style="display:flex;gap:10px;margin-top:12px">
-            <button class="btn" id="joinFormBtn">Join Free — Form</button>
-            <button class="btn outline" id="registerInline">Register Here</button>
+      <div class="card glass" id="course-css">
+        <div style="display:flex;gap:12px;align-items:center">
+          <div style="width:120px;height:90px;border-radius:10px;overflow:hidden">
+            <lottie-player src="https://assets1.lottiefiles.com/packages/lf20_qp1q7mct.json" background="transparent" speed="0.9" loop autoplay style="width:100%;height:100%"></lottie-player>
           </div>
-          <p style="margin-top:12px;color:var(--muted)">Contact: <strong id="contactPhone">+91 98765 43210</strong></p>
+          <div>
+            <h3 style="margin:0">CSS Essentials</h3>
+            <p style="color:var(--muted);margin:6px 0">Colors, layout, Flexbox, Grid, animations and responsive design.</p>
+            <div style="display:flex;gap:8px">
+              <div class="iconbtn" role="button"><i class="fa fa-magic"></i>&nbsp;Demo</div>
+              <a class="liquid" href="#join">Enroll</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card glass" id="course-projects">
+        <div style="display:flex;gap:12px;align-items:center">
+          <div style="width:120px;height:90px;border-radius:10px;overflow:hidden">
+            <div class="flipbook"><img src="https://i.imgur.com/jxWqIBf.png" alt="flipbook"></div>
+          </div>
+          <div>
+            <h3 style="margin:0">Mini Project Pack</h3>
+            <p style="color:var(--muted);margin:6px 0">Portfolio, mini-game and responsive landing pages.</p>
+            <div style="display:flex;gap:8px">
+              <div class="iconbtn" role="button"><i class="fa fa-folder-open"></i>&nbsp;Syllabus</div>
+              <a class="liquid" href="#join">Enroll</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SHOWCASE: global animation playground - many animated images everywhere -->
+  <section id="showcase" aria-label="Showcase">
+    <h2 class="section-title">Interactive Showcase — Images + Animations Everywhere</h2>
+    <p class="lead">We turned every illustration and image into an animated, interactive element for teaching and inspiration.</p>
+
+    <div class="grid">
+
+      <!-- 1. Line draw -->
+      <div class="card glass">
+        <h4>Self-drawing Line (SVG)</h4>
+        <svg viewBox="0 0 600 160" style="width:100%">
+          <defs><linearGradient id="showG" x1="0" x2="1"><stop offset="0" stop-color="#22d3ee"/><stop offset="1" stop-color="#a3e635"/></linearGradient></defs>
+          <path id="lineShow" d="M10,120 C120,20 240,200 360,60 440,-10 520,120 590,40" stroke="url(#showG)" stroke-width="6" fill="none" stroke-linecap="round" stroke-dasharray="1200" stroke-dashoffset="1200"/>
+        </svg>
+      </div>
+
+      <!-- 2. Morphing shapes -->
+      <div class="card">
+        <h4>Morphing Shapes (Anime.js)</h4>
+        <svg id="morphArea" viewBox="0 0 140 140" style="width:120px;height:120px">
+          <path id="morphShape" fill="url(#mG2)" d="M70 15 L115 50 L95 105 L45 105 L25 50 Z"></path>
+          <defs><linearGradient id="mG2" x1="0" x2="1"><stop offset="0" stop-color="#2563eb"/><stop offset="1" stop-color="#6d28d9"/></linearGradient></defs>
+        </svg>
+        <div style="margin-top:8px">
+          <button class="btn" id="playMorph2">Animate</button>
+        </div>
+      </div>
+
+      <!-- 3. Lottie icons -->
+      <div class="card glass">
+        <h4>Animated Icons (Lottie)</h4>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center">
+          <lottie-player src="https://assets6.lottiefiles.com/packages/lf20_kdx6cani.json" background="transparent" speed="1" loop autoplay style="width:100px;height:100px"></lottie-player>
+          <lottie-player src="https://assets2.lottiefiles.com/packages/lf20_j2jvbzoc.json" background="transparent" speed="1" loop autoplay style="width:100px;height:100px"></lottie-player>
+          <lottie-player src="https://assets7.lottiefiles.com/packages/lf20_ry2i9f3z.json" background="transparent" speed="1" loop autoplay style="width:100px;height:100px"></lottie-player>
+        </div>
+      </div>
+
+      <!-- 4. Faux 3D animated image -->
+      <div class="card neumo icon-3d">
+        <h4>Faux 3D (Interactive)</h4>
+        <div class="cube" id="cubeShow">
+          <div class="face f front" style="transform:translateZ(60px)">HTML</div>
+          <div class="face f back" style="transform:rotateY(180deg) translateZ(60px)">CSS</div>
+          <div class="face f left" style="transform:rotateY(-90deg) translateZ(60px)">UX</div>
+          <div class="face f right" style="transform:rotateY(90deg) translateZ(60px)">UI</div>
+          <div class="face f top" style="transform:rotateX(90deg) translateZ(60px)">JS</div>
+          <div class="face f bottom" style="transform:rotateX(-90deg) translateZ(60px)">WEB</div>
+        </div>
+      </div>
+
+      <!-- 5. Animated gradient image -->
+      <div class="card">
+        <h4>Animated Gradient Image</h4>
+        <div style="height:120px;border-radius:12px;background:linear-gradient(270deg,#22d3ee,#2563eb,#6d28d9,#a3e635);background-size:800% 800%;animation:grad 12s ease infinite"></div>
+      </div>
+
+      <!-- 6. Hand-drawn doodle -->
+      <div class="card glass">
+        <h4>Hand-drawn Doodle (SVG draw)</h4>
+        <svg class="doodle" viewBox="0 0 240 140"><path id="doodleLine" d="M20 20 C60 10, 60 60, 100 50 S 160 20, 220 50"></path></svg>
+      </div>
+
+      <!-- 7. Isometric + parallax image -->
+      <div class="card clay">
+        <h4>Isometric Illustration with Mouse Parallax</h4>
+        <div style="position:relative;height:140px;overflow:hidden;border-radius:12px">
+          <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200" alt="isometric" style="width:120%;transform:translateX(-10%);position:absolute;top:-8px" class="parallax-img">
+          <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(7,12,24,.0),rgba(7,12,24,.25));"></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- RESOURCES - animated images next to each resource -->
+  <section id="resources" aria-label="Resources">
+    <h2 class="section-title">Resources & Downloads</h2>
+    <p class="lead">Cheat-sheets, starter templates, and animated examples you can study.</p>
+
+    <div class="grid">
+      <a class="card glass resource" href="#" download>
+        <div style="display:flex;gap:12px;align-items:center">
+          <div style="width:100px;height:80px;border-radius:10px;overflow:hidden"><img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?q=80&w=1200" alt="html sheet"></div>
+          <div>
+            <h4 style="margin:0">HTML Cheat Sheet</h4>
+            <p style="color:var(--muted);margin:6px 0">Quick reference for tags & forms</p>
+          </div>
+        </div>
+      </a>
+
+      <a class="card glass resource" href="#" download>
+        <div style="display:flex;gap:12px;align-items:center">
+          <div style="width:100px;height:80px;border-radius:10px;overflow:hidden"><lottie-player src="https://assets9.lottiefiles.com/private_files/lf30_t8jfbjfh.json" background="transparent" speed="1" loop autoplay style="width:100%;height:100%"></lottie-player></div>
+          <div>
+            <h4 style="margin:0">CSS Cheat Sheet</h4>
+            <p style="color:var(--muted);margin:6px 0">Selectors, layout and animations</p>
+          </div>
+        </div>
+      </a>
+
+      <div class="card neumo">
+        <h4>Starter Portfolio</h4>
+        <p style="color:var(--muted)">A template with animated components and example code.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT / JOIN with embedded Google Form -->
+  <section id="join" aria-label="Join">
+    <h2 class="section-title">Join JJ Coders — Enrol Now</h2>
+    <p class="lead">No demo classes — fill the enrolment Google Form below to join.</p>
+
+    <div class="card glass" style="padding:18px">
+      <div style="display:flex;gap:18px;flex-wrap:wrap;align-items:flex-start">
+        <div style="flex:1;min-width:300px">
+          <h3 style="margin-top:0">Enrollment Form</h3>
+          <div class="form-embed">
+            <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScgVulpVxdqD_FyydKUcjMPwMRstzRBtVXkqkA1UufYViD48A/viewform?embedded=true" width="100%" height="620" frameborder="0">Loading…</iframe>
+          </div>
+        </div>
+
+        <aside style="width:320px;max-width:100%">
+          <div class="card">
+            <h4>Contact</h4>
+            <p style="color:var(--muted)">Email: <a href="mailto:jjcoders.jjco@gmail.com">jjcoders.jjco@gmail.com</a><br>WhatsApp: <a href="https://wa.me/919446071043" target="_blank">+91 9446071043</a></p>
+            <div style="margin-top:10px">
+              <div class="iconbtn" style="margin-bottom:8px"><i class="fa fa-phone"></i>&nbsp;Quick Call</div>
+              <a class="liquid" href="https://wa.me/919446071043" target="_blank">Open WhatsApp</a>
+            </div>
+          </div>
+
+          <div class="card" style="margin-top:12px">
+            <h4>Join Tips</h4>
+            <ul style="color:var(--muted);margin:0;padding-left:18px">
+              <li>Fill preferred batch and age in form.</li>
+              <li>We respond via WhatsApp within 24 hours.</li>
+            </ul>
+          </div>
         </aside>
-      </section>
-
-      <!-- CTA strip with counter -->
-      <section class="cta-strip fade-up">
-        <div class="cta-left">
-          <div style="font-weight:700;color:#fff">Seats filling fast — join the free course today</div>
-          <div style="color:var(--muted);font-size:13px">No coding experience required — learn in Malayalam</div>
-        </div>
-        <div style="text-align:right">
-          <div class="counter" id="liveCounter">0</div>
-          <div style="color:var(--muted);font-size:12px">students signed up</div>
-        </div>
-      </section>
-
-    </div>
-
-    <footer>© <span id="year"></span> JJ Coders — Founder: Johan Jomet • Classes in Malayalam</footer>
-  </div>
-
-  <!-- modal (embedded form) -->
-  <div class="modal" id="modal">
-    <div class="modal-card" role="dialog" aria-modal="true">
-      <div class="modal-header">
-        <div>Register — JJ Coders (embedded)</div>
-        <button class="close" id="modalClose">✕</button>
-      </div>
-      <div class="modal-body">
-        <iframe id="formFrame" class="modal-frame" src="" style="width:100%;height:100%;border:0"></iframe>
       </div>
     </div>
-  </div>
+  </section>
 
+  <!-- Testimonials -->
+  <section aria-label="Testimonials">
+    <h2 class="section-title">Parent testimonials</h2>
+    <div class="carousel card">
+      <div class="slide active">“My son loved building his first page — the animations kept him interested!” — Meera P.</div>
+      <div class="slide">“Short lessons, clear teaching, lots of fun.” — Anil R.</div>
+      <div class="slide">“Clear progress, great communication.” — Shreya S.</div>
+    </div>
+  </section>
+
+</main>
+
+<!-- Footer -->
+<footer>
+  <div class="container footer-inner">
+    <div style="display:flex;align-items:center;gap:12px">
+      <img src="logo.jpg" alt="JJ Coders" style="width:48px;height:48px;border-radius:10px;object-fit:cover">
+      <div><strong>JJ Coders</strong><div style="color:var(--muted)">Interactive HTML & CSS classes for kids</div></div>
+    </div>
+    <div style="color:var(--muted)"><a href="mailto:jjcoders.jjco@gmail.com">jjcoders.jjco@gmail.com</a> • <a href="https://wa.me/919446071043" target="_blank">+91 9446071043</a></div>
+  </div>
+</footer>
+
+<!-- Floating WhatsApp -->
+<a class="fab" href="https://wa.me/919446071043" target="_blank" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp" style="font-size:20px"></i></a>
+
+<!-- Lightbox for gallery previews -->
+<div class="lightbox" id="lightbox" aria-hidden="true"><img alt="preview"></div>
+
+<!-- Inline JavaScript: animations, particles and interactions -->
 <script>
-/* ----------------- CONFIG - set these ----------------- */
-const SHEET_ID = "1588cRNSYHBxWQqWlxxTgI3AswmArCHEAUg9KzXzzmRc"; // e.g. 1aBcD... (from the Google Sheet URL)
-const FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLScgVulpVxdqD_FyydKUcjMPwMRstzRBtVXkqkA1UufYViD48A/viewform";
-/* ---------------------------------------------------- */
+// Utilities
+const $ = (s,p=document)=>p.querySelector(s);
+const $$ = (s,p=document)=>[...p.querySelectorAll(s)];
 
-document.getElementById('year').textContent = new Date().getFullYear();
-document.getElementById('contactPhone').textContent = "+91 94460 71043"; // optionally change
-
-// CTA buttons open form in new tab
-document.querySelectorAll('#joinTop, #joinBtn, #joinFormBtn').forEach(b=>{
-  b.addEventListener('click', ()=> window.open(FORM_URL, '_blank'));
+// 1) Curtain reveal + progress bar
+window.addEventListener('load', ()=>{
+  const c = $('#curtain');
+  if(c) c.animate([{transform:'translateY(0)'},{transform:'translateY(-120%)'}],{duration:900,easing:'cubic-bezier(.2,.8,.2,1)',fill:'forwards'});
+  // hero line draw
+  const heroLine = $('#heroLine');
+  if(heroLine){ heroLine.animate([{strokeDashoffset:1200},{strokeDashoffset:0}],{duration:1400,easing:'ease',fill:'forwards'}); }
+  // show draw for other svgs
+  const draw = $('#lineShow');
+  if(draw) draw.animate([{strokeDashoffset:1200},{strokeDashoffset:0}],{duration:1400,easing:'ease',fill:'forwards',delay:200});
+  // doodle
+  const dood = $('#doodleLine');
+  if(dood){
+    const len = dood.getTotalLength();
+    dood.style.strokeDasharray = len; dood.style.strokeDashoffset = len;
+    dood.animate([{strokeDashoffset:len},{strokeDashoffset:0}],{duration:1600,easing:'ease',fill:'forwards',delay:450});
+  }
 });
 
-// Register inline (modal)
-const modal = document.getElementById('modal');
-const frame = document.getElementById('formFrame');
-document.getElementById('openModal').addEventListener('click', ()=> {
-  frame.src = FORM_URL + "?embedded=true";
-  modal.classList.add('open');
+// 2) Progress bar on scroll
+const prog = $('#prog') || $('#prog');
+document.addEventListener('scroll', ()=>{
+  const h = document.documentElement;
+  const pct = (h.scrollTop)/(h.scrollHeight - h.clientHeight) * 100;
+  (document.getElementById('prog')||document.querySelector('.progress-bar')).style.width = pct + '%';
 });
-document.getElementById('modalClose').addEventListener('click', ()=> {
-  modal.classList.remove('open'); frame.src = "";
-});
-document.getElementById('registerInline').addEventListener('click', ()=> {
-  frame.src = FORM_URL + "?embedded=true";
-  modal.classList.add('open');
-});
-modal.addEventListener('click', (e)=> { if(e.target===modal){ modal.classList.remove('open'); frame.src=""; }});
 
-// Testimonials auto-scroll simple
-(function rotate(){
-  const wrap = document.getElementById('testimonials');
-  let offset = 0;
-  setInterval(()=> {
-    offset += 260;
-    if(offset > wrap.scrollWidth - wrap.clientWidth) offset = 0;
-    wrap.scrollTo({ left:offset, behavior:'smooth'});
-  }, 3000);
+// 3) Floating icons: gentle bob
+$$('.floaticon').forEach((el,i)=>{
+  el.animate([{transform:'translateY(0)'},{transform:'translateY(-10px)'},{transform:'translateY(0)'}],{duration:3500 + i*400,iterations:Infinity,easing:'ease-in-out'});
+});
+
+// 4) Hero image subtle tilt on mousemove
+(function(){
+  const heroImg = $('#heroImg');
+  const visualCard = document.getElementById('visualCard');
+  if(!heroImg || !visualCard) return;
+  visualCard.addEventListener('mousemove', (e)=>{
+    const r = visualCard.getBoundingClientRect();
+    const x = (e.clientX - r.left) / r.width - 0.5;
+    const y = (e.clientY - r.top) / r.height - 0.5;
+    heroImg.style.transform = `translate(${x*10}px, ${y*8}px) scale(1.04) rotateX(${y*4}deg) rotateY(${x*4}deg)`;
+  });
+  visualCard.addEventListener('mouseleave', ()=> heroImg.style.transform = 'translate(0,0) scale(1)');
 })();
 
-/* ----------------- Live counter from Google Sheet -----------------
-  Uses Google Visualization JSON endpoint (no API key needed) for public sheets.
-  Sheet must be set to "Anyone with the link can view".
-  It returns a JS-like JSON which we parse to count rows.
-  NOTE: replace SHEET_ID above.
-------------------------------------------------------------------*/
-async function fetchStudentCount() {
-  if (!SHEET_ID || SHEET_ID.includes("REPLACE_WITH")) {
-    console.warn("SHEET_ID not set. Set SHEET_ID in script to enable live counter.");
-    return displayFallbackCount();
-  }
-  try {
-    // This endpoint returns a JS wrapper: "/*O_o*/\ngoogle.visualization.Query.setResponse(...);"
-    const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?gid=0`;
-    const res = await fetch(url, {cache: "no-store"});
-    const text = await res.text();
-    // Extract JSON from the wrapper
-    const jsonText = text.substring(text.indexOf('({') , text.lastIndexOf('})')+2);
-    const obj = JSON.parse(jsonText);
-    // rows are in obj.table.rows
-    const rows = obj.table.rows || [];
-    // If the sheet has a header row, subtract 1; but Form responses normally add header automatically
-    const count = rows.length;
-    updateCounts(count);
-  } catch (err) {
-    console.error("Failed to fetch sheet:", err);
-    displayFallbackCount();
-  }
-}
-function updateCounts(n){
-  const student = document.getElementById('studentCount');
-  const live = document.getElementById('liveCounter');
-  student.textContent = n;
-  live.textContent = n;
-}
-function displayFallbackCount(){
-  // fallback if fetch fails or sheet not set: try cached localStorage or show 0
-  const cached = localStorage.getItem('jj_students_count') || 0;
-  updateCounts(cached);
-}
+// 5) Parallax on isometric images (mouse)
+$$('.parallax-img').forEach(img=>{
+  const wrap = img.parentElement;
+  wrap.addEventListener('mousemove', e=>{
+    const r = wrap.getBoundingClientRect();
+    const x = (e.clientX - r.left) / r.width - 0.5;
+    const y = (e.clientY - r.top) / r.height - 0.5;
+    img.style.transform = `translate(${x*8}px, ${y*6}px) scale(1.03)`;
+  });
+  wrap.addEventListener('mouseleave', ()=> img.style.transform = 'translateX(-10%)');
+});
 
-/* refresh every 45 seconds */
-fetchStudentCount();
-setInterval(fetchStudentCount, 45000);
+// 6) Morphing shape (anime.js)
+$('#playMorph2')?.addEventListener('click', ()=>{
+  const p = document.getElementById('morphShape');
+  if(!p) return;
+  anime({
+    targets: p,
+    d: [
+      {value: 'M70 15 C110 10 130 40 110 80 C90 120 50 130 20 100 C-10 70 20 25 70 15 Z'},
+      {value: 'M70 15 L120 60 L90 120 L40 120 L10 60 Z'}
+    ],
+    duration:1400, direction:'alternate', easing:'easeInOutQuad'
+  });
+});
 
-/* tiny fade-in delays */
-document.querySelectorAll('.fade-up').forEach((el,i)=> el.style.animationDelay = (i*80)+'ms');
+// 7) Morph logo gentle pulse
+(function(){
+  const logo = document.getElementById('mLogo');
+  if(logo) setInterval(()=> logo.animate([{transform:'scale(1)'},{transform:'scale(1.04)'},{transform:'scale(1)'}],{duration:2200}),2400);
+})();
+
+// 8) Cube rotation using requestAnimationFrame for smoothness
+(function(){
+  const c = document.getElementById('cube');
+  let angle = 0;
+  if(!c) return;
+  const loop = ()=>{ angle += 0.6; c.style.transform = `rotateX(${angle}deg) rotateY(${angle*0.9}deg)`; requestAnimationFrame(loop); };
+  loop();
+})();
+
+// 9) Lightbox for gallery-like images
+(function(){
+  const lb = document.getElementById('lightbox');
+  const lbImg = lb.querySelector('img');
+  $$('img[data-full]').forEach(img=>{
+    img.addEventListener('click', ()=>{ lbImg.src = img.dataset.full || img.src; lb.style.display = 'grid'; lb.setAttribute('aria-hidden','false'); });
+    img.style.cursor = 'zoom-in';
+  });
+  lb.addEventListener('click', ()=>{ lb.style.display = 'none'; lb.setAttribute('aria-hidden','true'); });
+  document.addEventListener('keydown', e=>{ if(e.key === 'Escape') lb.style.display='none'; });
+})();
+
+// 10) Testimonials carousel
+(function(){
+  const slides = $$('.slide');
+  if(slides.length){
+    let i=0;
+    setInterval(()=>{ slides[i].classList.remove('active'); i=(i+1)%slides.length; slides[i].classList.add('active'); }, 3500);
+  }
+})();
+
+// 11) GSAP reveals & ScrollTrigger animations for many cards and micro interactions
+document.addEventListener('DOMContentLoaded', ()=>{
+  if(window.gsap && window.ScrollTrigger){
+    gsap.registerPlugin(ScrollTrigger);
+    gsap.utils.toArray('.card').forEach((el, idx)=>{
+      gsap.from(el,{opacity:0,y:28,delay:idx*0.04,duration:0.7,ease:'power3.out',scrollTrigger:{trigger:el, start:'top 88%'}});
+    });
+    // float images parallax on scroll
+    gsap.to('.floaticon',{yPercent:-12, ease:'none', scrollTrigger:{trigger:'.hero', start:'top top', end:'bottom top', scrub:0.6}});
+    // hero large lottie wiggle
+    gsap.to('.visual-card',{y:6, repeat:-1, yoyo:true, duration:4, ease:'sine.inOut'});
+    // images tilt in
+    gsap.utils.toArray('.course-img').forEach(img=>{
+      gsap.from(img,{scale:0.96, opacity:0.8, duration:1, ease:'expo.out', scrollTrigger:{trigger:img, start:'top 92%'}});
+    });
+    // parallax images
+    gsap.to('.parallax-img',{yPercent:-12, ease:'none', scrollTrigger:{trigger:'.parallax-img', start:'top bottom', end:'bottom top', scrub:true}});
+  }
+});
+
+// 12) Particles canvas (simple particle system)
+(function(){
+  const canvas = document.getElementById('particle-canvas');
+  if(!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let w=canvas.width=innerWidth, h=canvas.height=innerHeight, particles=[];
+  window.addEventListener('resize', ()=>{ w=canvas.width=innerWidth; h=canvas.height=innerHeight; });
+  function rand(min,max){ return Math.random()*(max-min)+min; }
+  for(let i=0;i<80;i++){
+    particles.push({x:rand(0,w), y:rand(0,h), vx:rand(-0.2,0.2), vy:rand(-0.15,0.15), r:rand(1,3), hue:rand(180,260)});
+  }
+  function loop(){
+    ctx.clearRect(0,0,w,h);
+    particles.forEach(p=>{
+      p.x += p.vx; p.y += p.vy;
+      if(p.x<0) p.x=w; if(p.x>w) p.x=0; if(p.y<0) p.y=h; if(p.y>h) p.y=0;
+      ctx.beginPath();
+      ctx.fillStyle = `hsla(${p.hue},75%,65%,0.06)`;
+      ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fill();
+    });
+    requestAnimationFrame(loop);
+  }
+  loop();
+})();
+
+// 13) Microinteractions: button hover lifts
+$$('.btn, .iconbtn, .liquid').forEach(el=>{
+  el.addEventListener('mouseenter', ()=> el.animate([{transform:'translateY(0)'},{transform:'translateY(-6px)'}],{duration:160,fill:'forwards'}));
+  el.addEventListener('mouseleave', ()=> el.animate([{transform:'translateY(-6px)'},{transform:'translateY(0)'}],{duration:160,fill:'forwards'}));
+});
+
+// 14) Hover animated images scale slightly on hover everywhere
+$$('.anim-img img, .inline-anim img, .course-img').forEach(img=>{
+  img.addEventListener('mouseenter', ()=> img.style.transform = 'scale(1.06)');
+  img.addEventListener('mouseleave', ()=> img.style.transform = 'scale(1)');
+});
+
+// 15) small accessibility: focus outlines
+$$('a, button, [role="button"]').forEach(el=>{
+  el.addEventListener('focus', ()=> el.style.outline = '3px solid rgba(109,40,217,0.16)');
+  el.addEventListener('blur', ()=> el.style.outline = 'none');
+});
+
+// End of script
 </script>
 </body>
 </html>
