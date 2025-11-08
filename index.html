@@ -1,241 +1,799 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Wibbitz</title>
-	<link rel="stylesheet" type="text/css" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JJ Coders - Official Website.</title>
+    <!-- Primary Meta Tags -->
+
+<meta name="title" content="JJ Coders | Official Website">
+<meta name="description" content="JJ Coders empowers creators and businesses with web development, learning resources, and automation tools. Build, learn, and automate with us.">
+<meta name="keywords" content="JJ Coders, web development, coding tutorials, automation tools, tech learning, programming courses, software projects, innovative technology, digital solutions">
+<meta name="author" content="JJ Coders">
+<meta name="robots" content="index, follow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://jjcoders00.github.io/JJ-coders/">
+<meta property="og:title" content="JJ Coders | Official Website">
+<meta property="og:description" content="JJ Coders empowers creators and businesses with web development, learning resources, and automation tools. Build, learn, and automate with us.">
+<meta property="og:image" content="https://jjcoders00.github.io/JJ-coders/logo.jpg">
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image">
+<meta property="twitter:url" content="https://jjcoders00.github.io/JJ-coders/">
+<meta property="twitter:title" content="JJ Coders | Official Website">
+<meta property="twitter:description" content="JJ Coders empowers creators and businesses with web development, learning resources, and automation tools. Build, learn, and automate with us.">
+<meta property="twitter:image" content="https://jjcoders00.github.io/JJ-coders/assets/og-image.jpg">
+
+<!-- Optional: Google Site Verification -->
+<meta name="google-site-verification" content="YOUR_GOOGLE_VERIFICATION_CODE_HERE">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #6366f1;
+            --secondary: #8b5cf6;
+            --accent: #ec4899;
+            --dark: #0f0f23;
+            --darker: #050510;
+            --light: #e0e7ff;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--darker);
+            color: #fff;
+            overflow-x: hidden;
+            cursor: none;
+        }
+
+            body {
+        cursor: url('cursor.png'), auto;
+    }
+
+
+        .cursor-follower {
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: all 0.3s ease;
+            transform: translate(-50%, -50%);
+        }
+
+        .cursor.hover {
+            width: 60px;
+            height: 60px;
+            background: rgba(99, 102, 241, 0.1);
+            border-color: var(--accent);
+        }
+
+        
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1.5rem 5%;
+            backdrop-filter: blur(20px);
+            background: rgba(15, 15, 35, 0.7);
+            border-bottom: 1px solid rgba(99, 102, 241, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled {
+            padding: 1rem 5%;
+            background: rgba(15, 15, 35, 0.95);
+            box-shadow: 0 10px 40px rgba(99, 102, 241, 0.1);
+        }
+
+        nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .logo img {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover img {
+            transform: rotate(360deg) scale(1.1);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            padding: 8rem 5% 4rem;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.15), transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.15), transparent 50%),
+                        radial-gradient(circle at 20% 80%, rgba(236, 72, 153, 0.15), transparent 50%);
+            animation: pulse 8s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        .hero-content {
+            max-width: 1400px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #fff, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards 0.2s;
+        }
+
+        .hero p {
+            font-size: clamp(1.1rem, 2vw, 1.4rem);
+            color: rgba(255, 255, 255, 0.7);
+            max-width: 700px;
+            margin: 0 auto 3rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards 0.4s;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+        }
+
+        /* Division Cards */
+        .divisions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .division-card {
+            position: relative;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            border-radius: 24px;
+            padding: 3rem 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        .division-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .division-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .division-card:hover::before {
+            opacity: 0.1;
+        }
+
+        .division-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: var(--primary);
+            box-shadow: 0 20px 60px rgba(99, 102, 241, 0.3);
+        }
+
+        .card-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            transition: transform 0.5s ease;
+        }
+
+        .division-card:hover .card-icon {
+            transform: scale(1.2) rotate(10deg);
+        }
+
+        .division-card h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .division-card p {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.6;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card-link {
+            display: inline-block;
+            margin-top: 1.5rem;
+            padding: 0.8rem 2rem;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: #fff;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4);
+        }
+
+        /* About Section */
+        .about {
+            padding: 8rem 5%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            text-align: center;
+            margin-bottom: 3rem;
+            background: linear-gradient(135deg, #fff, var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .section-title.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .about-content {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            border-radius: 24px;
+            padding: 4rem;
+            backdrop-filter: blur(20px);
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+
+        .about-content.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .about-content h3 {
+            font-size: 2rem;
+            color: var(--primary);
+            margin: 2rem 0 1rem;
+        }
+
+        .about-content p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 1.5rem;
+        }
+
+        .about-content ul {
+            list-style: none;
+            margin: 2rem 0;
+        }
+
+        .about-content li {
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(99, 102, 241, 0.1);
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.8);
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .about-content li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        .pillars {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .pillar {
+            background: rgba(99, 102, 241, 0.05);
+            padding: 2rem;
+            border-radius: 16px;
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .pillar:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 10px 40px rgba(99, 102, 241, 0.2);
+        }
+
+        .pillar h4 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        /* Footer */
+        footer {
+            padding: 4rem 5%;
+            border-top: 1px solid rgba(99, 102, 241, 0.2);
+            background: rgba(15, 15, 35, 0.5);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+
+        .footer-section h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-icon:hover {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(99, 102, 241, 0.1);
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Particles */
+        .particles {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: var(--primary);
+            border-radius: 50%;
+            animation: float 15s infinite;
+            opacity: 0.3;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) translateX(0);
+            }
+            25% {
+                transform: translateY(-100px) translateX(50px);
+            }
+            50% {
+                transform: translateY(-50px) translateX(-50px);
+            }
+            75% {
+                transform: translateY(-150px) translateX(100px);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                gap: 1.5rem;
+                font-size: 0.9rem;
+            }
+
+            .divisions {
+                grid-template-columns: 1fr;
+                padding: 0 1rem;
+            }
+
+            .about-content {
+                padding: 2rem;
+            }
+
+            .pillars {
+                grid-template-columns: 1fr;
+            }
+
+            body {
+                cursor: auto;
+            }
+
+            .cursor, .cursor-follower {
+                display: none;
+            }
+        }
+    </style>
 </head>
 <body>
+    <!-- Custom Cursor -->
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
 
-	<section class="first">
-		<section class="header">
-			<header>
-				<ul class="left">
-					<li class="logo">
-						<img src="first/logo.svg">
-					</li>
-				</ul>
+    <!-- Header -->
+    <header id="header">
+        <nav>
+            <div class="logo">
+                <img src="logo.jpg" alt="JJ Coders Logo">
+                <span>JJ Coders</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="build.html">Build</a></li>
+                <li><a href="learn.html">Learn</a></li>
+                <li><a href="automate.html">Automate</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
 
-				<ul class="middle">
-					<li>
-						<h4>Solutions</h4>
-					</li>
-					<li>
-						<h4>Enterprise</h4>
-					</li>
-					<li>
-						<h4>Use Cases</h4>
-					</li>
-					<li>
-						<h4>Pricing</h4>
-					</li>
-					<li>
-						<h4>Resources</h4>
-					</li>
-					<li>
-						<h4>Company</h4>
-					</li>
-				</ul>
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-bg"></div>
+        <div class="particles" id="particles"></div>
+        <div class="hero-content">
+            <h1>We Build. We Teach. We Automate.</h1>
+            <p>Empowering the next generation of innovators through technology, education, and intelligent automation.</p>
+            
+            <div class="divisions">
+                <div class="division-card" data-delay="0.2">
+                    <div class="card-icon">🚀</div>
+                    <h3>Build</h3>
+                    <p>We craft beautiful, scalable websites & apps that bring your vision to life with cutting-edge technology.</p>
+                    <a href="build.html" class="card-link">Explore Build</a>
+                </div>
 
-				<ul class="right">
-					<li>Login</li>
-					<li class="getdemo">
-						<h4 class="demo">Get a demo</h4>
-					</li>
-				</ul>
-			</header>
-		</section>
+                <div class="division-card" data-delay="0.4">
+                    <div class="card-icon">🎓</div>
+                    <h3>Learn</h3>
+                    <p>Learn AI, coding, and robotics through real projects designed to transform beginners into tech leaders.</p>
+                    <a href="learn.html" class="card-link">Start Learning</a>
+                </div>
+        
 
-		<section class="main">
-			<h2>
-				The quickest and<br>easiest online video<br>editor for every<br>team
-			</h2>
-			<p>
-				Wibbitz gives you the freedom to create short<br>form video online in minutes - no experience<br>necessary
-			</p>
+                <div class="division-card" data-delay="0.6">
+                    <div class="card-icon">⚡</div>
+                    <h3>Automate</h3>
+                    <p>Intelligent automations for businesses and workflows that save time and boost productivity.</p>
+                    <a href="automate.html" class="card-link">Automate Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
 
-			<form>
-				<input type="email" name="email" placeholder="Enter your work email">
-				<a href="#footer"><h6>Get a demo</h6></a>
-			</form>
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="about-container">
+            <h2 class="section-title">About JJ Coders</h2>
+            <div class="about-content">
+                <p>JJ Coders is a pioneering platform dedicated to empowering individuals and businesses in the world of technology. Founded by <strong>Johan Jomet</strong>, a 12-year-old tech prodigy, our mission is to make learning, building, and automating in technology simple, fun, and accessible to everyone—whether you're a beginner, a student, or an aspiring tech entrepreneur.</p>
 
-			<img src="first/image.svg">
-		</section>
-		<section class="company">
-			<h6>
-				Trusted by content creators across the world
-			</h6>
-			<ul>
-				<li>
-					<img src="first/reuters-logo.svg">
-				</li>
-				<li>
-					<img src="first/logo-taboola.svg">
-				</li>
-				<li>
-					<img src="first/logo-bloomberg.svg">
-				</li>
-				<li>
-					<img src="first/logo-nbc.svg">
-				</li>
-				<li>
-					<img src="first/logo-birchbox.svg">
-				</li>
-				<li>
-					<img src="first/usa-today-logo.svg">
-				</li>
-				<li>
-					<img src="first/logo-hubspot.svg">
-				</li>
-				<li>
-					<img src="first/logo-tmz.svg">
-				</li>
-			</ul>
-		</section>
-	</section>
+                <p>Founded with the vision of bridging the gap between traditional learning and real-world tech applications, JJ Coders focuses on three core pillars:</p>
 
-	<!-- second -->
-	<section class="second">
-		<img src="second/HS.png" class="hc">
-		<section class="second-left-pad">
-			<section class="edit-round">
-			<img src="second/edit-white.svg" class="edit">
-			</section>
-		<h2>
-			Match everything to<br>your brand and style 
-		</h2>
-		<p class="second-p-f">Add logo watermarks, custom video intros, text<br>overlay styles, a full-spectrum color palette, and<br> upload your brand fonts.</p>
-		<section class="second-btn">
-			<a href="#" class="second-btn-a">Get a demo</a>
-		</section>
-		<div class="quote">
-			<p class="grey">---------------------------------------</p>
-			<p class="grey"><i>"Being able to crank out cideos constinstentally, localise<br>them for differnt regions, and still save resourses,<br>time, and energy has been a game changer".</i></p>
-			<h6>- Charlie Relif, Social video editor and animator, </h6>
-			<img src="second/logo-hubspot.svg" alt="" class="second-logo">
-		</div>
-		</section>
+                <div class="pillars">
+                    <div class="pillar">
+                        <h4>1. Build</h4>
+                        <p>We help individuals and businesses turn ideas into fully functional digital solutions. From responsive websites to interactive web applications and automation systems, our team guides you through creating technology that works.</p>
+                    </div>
 
-	</section>
+                    <div class="pillar">
+                        <h4>2. Learn</h4>
+                        <p>At JJ Coders, learning isn't just about coding—it's about understanding how technology can solve real problems. Our courses and tutorials cover web development, coding languages, automation tools, and innovative tech skills that prepare learners for the future.</p>
+                    </div>
 
-	<!-- Third -->
+                    <div class="pillar">
+                        <h4>3. Automate</h4>
+                        <p>Automation is at the heart of modern business and personal productivity. We provide solutions that streamline repetitive tasks, optimize workflows, and enhance efficiency, giving our clients more time to focus on creativity and growth.</p>
+                    </div>
+                </div>
 
-	<section class="second third" id="footer">
-		<img src="second/HS.png" class="hc">
-		<section class="second-left-pad">
-			<section class="edit-round lightning-white">
-			<img src="third/lightning-white.svg" class="edit">
-			</section>
-		<h2>
-			Match everything to<br>your brand and style 
-		</h2>
-		<p class="second-p-f">Add logo watermarks, custom video intros, text<br>overlay styles, a full-spectrum color palette, and<br> upload your brand fonts.</p>
-		<section class="second-btn">
-			<a href="#" class="second-btn-a">Get a demo</a>
-		</section>
-		<div class="quote">
-			<p class="grey">---------------------------------------</p>
-			<p class="grey"><i>"Being able to crank out cideos constinstentally, localise<br>them for differnt regions, and still save resourses,<br>time, and energy has been a game changer".</i></p>
-			<h6>- Charlie Relif, Social video editor and animator, </h6>
-			<img src="third/usa-today-logo.svg" alt="" class="second-logo">
-		</div>
-		</section>
+                <p>Despite being only 12 years old, our founder Johan Jomet has already demonstrated the passion and skill to create real-world tech solutions, inspiring other young minds to explore coding, automation, and digital innovation.</p>
 
-	</section>
+                <h3>Why Choose JJ Coders?</h3>
+                <ul>
+                    <li>Expert guidance in web development, coding, and automation.</li>
+                    <li>Beginner-friendly and advanced courses for all skill levels.</li>
+                    <li>Real-world projects that enhance your portfolio and skills.</li>
+                    <li>A supportive community that encourages collaboration and creativity.</li>
+                </ul>
 
-	<!-- Fourth -->
+                <p>At JJ Coders, we're more than just a learning platform—we're a launchpad for your ideas. Whether you want to build websites, automate tasks, or learn to code, JJ Coders is your partner in navigating the digital world with confidence and creativity.</p>
 
-	<section class="second fourth">
-		<img src="second/HS.png" class="hc">
-		<section class="second-left-pad">
-			<section class="edit-round film-white">
-			<img src="fourth/film-white.svg" class="edit">
-			</section>
-		<h2>
-			Match everything to<br>your brand and style 
-		</h2>
-		<p class="second-p-f">Add logo watermarks, custom video intros, text<br>overlay styles, a full-spectrum color palette, and<br> upload your brand fonts.</p>
-		<section class="second-btn">
-			<a href="#" class="second-btn-a">Get a demo</a>
-		</section>
-		<div class="quote">
-			<p class="grey">---------------------------------------</p>
-			<p class="grey"><i>"Being able to crank out cideos constinstentally, localise<br>them for differnt regions, and still save resourses,<br>time, and energy has been a game changer".</i></p>
-			<h6>- Charlie Relif, Social video editor and animator, </h6>
-			<img src="fourth/Iheart.svg" alt="" class="second-logo">
-		</div>
-		</section>
+                <p style="text-align: center; font-size: 1.3rem; margin-top: 2rem; color: var(--primary);"><strong>Join us today and start your journey in building, learning, and automating with JJ Coders!</strong></p>
+            </div>
+        </div>
+    </section>
 
-	</section>
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>JJ Coders</h3>
+                <p style="color: rgba(255, 255, 255, 0.7);">Empowering the next generation through technology, education, and innovation.</p>
+            </div>
 
-	<!-- Fifth -->
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="build.html">Build</a></li>
+                    <li><a href="learn.html">Teach</a></li>
+                    <li><a href="automate.html">Automate</a></li>
+                    <li><a href="policies.html">Policies</a></li>
+                </ul>
+            </div>
 
-	<section class="fifth">
-		<h1>Create video like these<br>leading brands</h1>
-		<section class="fifth-flex">
-		<section id="1">
-			<img src="fifth/review1.jpg" alt="" class="re">
-			<section class="pl">
-			<img src="fifth/play.svg" alt="" class="pla">
-			</section>
-			<section class="hub1">
-			<img src="fifth/logo-brand-nbc2.svg" alt="" class="hub-logo-five">
-			</section>
-			<h6>How NBC enhances their content<br>offering with custom video automation</h6>
-		</section>
-		<section id="2">
-			<img src="fifth/review1.jpg" alt="" class="re">
-			<section class="pl">
-			<img src="fifth/play.svg" alt="" class="pla">
-			</section>
-			<section class="hub1">
-			<img src="fifth/hubspot-1.svg" alt="" class="hub-logo-five" style="width: 90px;">
-			</section>
-			<h6>How HubSpot showcases thei business<br>trends throuh video</h6>
-		</section>
-		<section id="3"><img src="fifth/review1.jpg" alt="" class="re">
-			<section class="pl">
-			<img src="fifth/play.svg" alt="" class="pla">
-			</section>
-			<section class="hub1">
-			<img src="fifth/HousingWi.svg" alt="" class="hub-logo-five">
-		</section>
-		<h6>How HousingWire uses Wibbitz to<br>highlight housig market and real<br>estate news</h6>
-		</section>
-	</section>
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p style="color: rgba(255, 255, 255, 0.7); margin-bottom: 1rem;">
+                    📧 jjcoders.jjco@gmail.com<br>
+                    📱 +91 9446071043
+                </p>
+                <div class="social-links">
+                    <a href="https://wa.me/919446071043" class="social-icon" title="WhatsApp"> <img src="wa.jpg"></a>
+                    <a href="mailto:jjcoders.jjco@gmail.com" class="social-icon" title="Email">✉️</a>
+                </div>
+            </div>
+        </div>
 
-	<!-- Sixth -->
+        <div class="footer-bottom">
+            <p>&copy; 2025 JJ Coders. Founded by Johan Jomet. All rights reserved.</p>
+        </div>
+    </footer>
 
-	<section class="sixth">
-		<section id="sixth1">
-			<img src="sixth/person1.png" alt="" class="re person1">
-			<section class="hub1 sixthlogo">
-			<img src="sixth/hogan.svg" alt="" class="hub-logo-five logo-sixth">
-			</section>
-			<h6>The versilatily of wibbitz allows us to create video for<br>any kind of digital content-making our tem more<br>efficient</h6>
-			<h6 class="name--">Chase Kroll</h6>
-			<h6 class="name-- job">Managing Director</h6>
-			<h6 class="name--">Stragic Communications</h6>
-		</section>
-		
-		<section id="sixth1">
-			<img src="sixth/pesron2.png.png" alt="" class="re person1">
-			<section class="hub1 sixthlogo">
-			<img src="sixth/bet.svg" alt="" class="hub-logo-five logo-sixth sixth-bet">
-			</section>
-			<h6>The videos we can quickly create with wibbitz help us<br>engage our audience on social media, who feel more<br>connected to videos than just an image or text post</h6>
-			<h6 class="name--">Ken Gibbis</h6>
-			<h6 class="name-- job">Vice President</h6>
-			<h6 class="name--">Digital video & social content</h6>
-		</section>
-	</section>
+    <script>
+        // Custom Cursor
+        const cursor = document.querySelector('.cursor');
+        const follower = document.querySelector('.cursor-follower');
+        let mouseX = 0, mouseY = 0;
+        let followerX = 0, followerY = 0;
 
-	<!--seventh-->
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            cursor.style.left = mouseX + 'px';
+            cursor.style.top = mouseY + 'px';
+        });
 
-	<section class="seventh">
+        function animateFollower() {
+            followerX += (mouseX - followerX) * 0.1;
+            followerY += (mouseY - followerY) * 0.1;
+            follower.style.left = followerX + 'px';
+            follower.style.top = followerY + 'px';
+            requestAnimationFrame(animateFollower);
+        }
+        animateFollower();
 
-	</section>
+        // Cursor hover effect
+        const hoverElements = document.querySelectorAll('a, button, .division-card');
+        hoverElements.forEach(el => {
+            el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+            el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+        });
 
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.2,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.division-card, .section-title, .about-content').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Staggered card animations
+        document.querySelectorAll('.division-card').forEach((card, index) => {
+            card.style.transitionDelay = `${index * 0.2}s`;
+        });
+
+        // Particles
+        const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 50; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.top = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 15 + 's';
+            particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+            particlesContainer.appendChild(particle);
+        }
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Parallax effect
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const parallaxElements = document.querySelectorAll('.hero-bg, .particles');
+            parallaxElements.forEach(el => {
+                el.style.transform = `translateY(${scrolled * 0.5}px)`;
+            });
+        });
+    </script>
 </body>
 </html>
