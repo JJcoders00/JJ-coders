@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>JJ Coders Build — Coming Soon</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Inter:wght@400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#050612;--brand1:#6d28d9;--brand2:#2563eb;--text:#eef6ff;--muted:#9aa8c0;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;
+  background:radial-gradient(circle at 20% 30%,rgba(109,40,217,.2),transparent 60%),
+             radial-gradient(circle at 80% 70%,rgba(37,99,235,.2),transparent 60%),
+             var(--bg);
+  color:var(--text);font-family:Inter,sans-serif;text-align:center;overflow:hidden;
+}
+h1{font-family:Poppins,sans-serif;font-size:clamp(2rem,6vw,4rem);margin-bottom:.6em;}
+p{color:var(--muted);max-width:600px;margin:0 auto 1.6em;}
+.progress{width:320px;max-width:80vw;height:14px;background:rgba(255,255,255,0.08);border-radius:10px;overflow:hidden;margin:1em auto;}
+.bar{height:100%;width:70%;background:linear-gradient(90deg,var(--brand2),var(--brand1));border-radius:inherit;transition:width .8s;}
+.note{margin-top:.4em;color:var(--muted);font-size:.9rem;}
+.btn{
+  display:inline-block;margin-top:1.8em;padding:12px 22px;border-radius:12px;
+  background:linear-gradient(90deg,var(--brand2),var(--brand1));color:#fff;font-weight:700;text-decoration:none;
+  box-shadow:0 8px 24px rgba(37,99,235,.25);transition:transform .3s;
+}
+.btn:hover{transform:translateY(-3px);}
+footer{position:absolute;bottom:20px;font-size:.85rem;color:var(--muted);}
+</style>
+</head>
+<body>
+  <h1>🚧 Build Division — Coming Soon</h1>
+  <p>We’re crafting powerful, lightning-fast websites and digital products for JJ Coders Build.  
+     The page is almost ready — check back soon or contact us to get early access.</p>
+
+  <div class="progress"><div class="bar" style="width:70%"></div></div>
+  <div class="note">Progress : 70 % complete</div>
+
+  <a href="index.html" class="btn">← Back to Home</a>
+  <footer>© 2025 JJ Coders · We Build. We Learn. We Automate.</footer>
+</body>
+</html>
