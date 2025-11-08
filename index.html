@@ -1,799 +1,875 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JJ Coders - Official Website.</title>
-    <!-- Primary Meta Tags -->
-
-<meta name="title" content="JJ Coders | Official Website">
-<meta name="description" content="JJ Coders empowers creators and businesses with web development, learning resources, and automation tools. Build, learn, and automate with us.">
-<meta name="keywords" content="JJ Coders, web development, coding tutorials, automation tools, tech learning, programming courses, software projects, innovative technology, digital solutions">
-<meta name="author" content="JJ Coders">
-<meta name="robots" content="index, follow">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<!-- Open Graph / Facebook -->
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://jjcoders00.github.io/JJ-coders/">
-<meta property="og:title" content="JJ Coders | Official Website">
-<meta property="og:description" content="JJ Coders empowers creators and businesses with web development, learning resources, and automation tools. Build, learn, and automate with us.">
-<meta property="og:image" content="https://jjcoders00.github.io/JJ-coders/logo.jpg">
-
-<!-- Twitter -->
-<meta property="twitter:card" content="summary_large_image">
-<meta property="twitter:url" content="https://jjcoders00.github.io/JJ-coders/">
-<meta property="twitter:title" content="JJ Coders | Official Website">
-<meta property="twitter:description" content="JJ Coders empowers creators and businesses with web development, learning resources, and automation tools. Build, learn, and automate with us.">
-<meta property="twitter:image" content="https://jjcoders00.github.io/JJ-coders/assets/og-image.jpg">
-
-<!-- Optional: Google Site Verification -->
-<meta name="google-site-verification" content="YOUR_GOOGLE_VERIFICATION_CODE_HERE">
-
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --primary: #6366f1;
-            --secondary: #8b5cf6;
-            --accent: #ec4899;
-            --dark: #0f0f23;
-            --darker: #050510;
-            --light: #e0e7ff;
-        }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: var(--darker);
-            color: #fff;
-            overflow-x: hidden;
-            cursor: none;
-        }
-
-            body {
-        cursor: url('cursor.png'), auto;
-    }
-
-
-        .cursor-follower {
-            width: 40px;
-            height: 40px;
-            border: 1px solid rgba(99, 102, 241, 0.3);
-            border-radius: 50%;
-            position: fixed;
-            pointer-events: none;
-            z-index: 9999;
-            transition: all 0.3s ease;
-            transform: translate(-50%, -50%);
-        }
-
-        .cursor.hover {
-            width: 60px;
-            height: 60px;
-            background: rgba(99, 102, 241, 0.1);
-            border-color: var(--accent);
-        }
-
-        
-
-        /* Header */
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            padding: 1.5rem 5%;
-            backdrop-filter: blur(20px);
-            background: rgba(15, 15, 35, 0.7);
-            border-bottom: 1px solid rgba(99, 102, 241, 0.1);
-            transition: all 0.3s ease;
-        }
-
-        header.scrolled {
-            padding: 1rem 5%;
-            background: rgba(15, 15, 35, 0.95);
-            box-shadow: 0 10px 40px rgba(99, 102, 241, 0.1);
-        }
-
-        nav {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            font-size: 1.5rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .logo img {
-            width: 50px;
-            height: 50px;
-            border-radius: 10px;
-            transition: transform 0.3s ease;
-        }
-
-        .logo:hover img {
-            transform: rotate(360deg) scale(1.1);
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2.5rem;
-            list-style: none;
-        }
-
-        .nav-links a {
-            color: #fff;
-            text-decoration: none;
-            font-weight: 500;
-            position: relative;
-            transition: color 0.3s ease;
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(90deg, var(--primary), var(--accent));
-            transition: width 0.3s ease;
-        }
-
-        .nav-links a:hover {
-            color: var(--primary);
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        /* Hero Section */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-            padding: 8rem 5% 4rem;
-        }
-
-        .hero-bg {
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.15), transparent 50%),
-                        radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.15), transparent 50%),
-                        radial-gradient(circle at 20% 80%, rgba(236, 72, 153, 0.15), transparent 50%);
-            animation: pulse 8s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.6; }
-        }
-
-        .hero-content {
-            max-width: 1400px;
-            width: 100%;
-            text-align: center;
-            position: relative;
-            z-index: 10;
-        }
-
-        .hero h1 {
-            font-size: clamp(3rem, 8vw, 6rem);
-            font-weight: 900;
-            line-height: 1.1;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(135deg, #fff, var(--primary), var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            opacity: 0;
-            animation: fadeInUp 1s ease forwards 0.2s;
-        }
-
-        .hero p {
-            font-size: clamp(1.1rem, 2vw, 1.4rem);
-            color: rgba(255, 255, 255, 0.7);
-            max-width: 700px;
-            margin: 0 auto 3rem;
-            opacity: 0;
-            animation: fadeInUp 1s ease forwards 0.4s;
-        }
-
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-        }
-
-        /* Division Cards */
-        .divisions {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        .division-card {
-            position: relative;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(99, 102, 241, 0.2);
-            border-radius: 24px;
-            padding: 3rem 2rem;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            overflow: hidden;
-            opacity: 0;
-            transform: translateY(50px);
-        }
-
-        .division-card.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .division-card::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            opacity: 0;
-            transition: opacity 0.5s ease;
-        }
-
-        .division-card:hover::before {
-            opacity: 0.1;
-        }
-
-        .division-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            border-color: var(--primary);
-            box-shadow: 0 20px 60px rgba(99, 102, 241, 0.3);
-        }
-
-        .card-icon {
-            font-size: 4rem;
-            margin-bottom: 1.5rem;
-            display: inline-block;
-            transition: transform 0.5s ease;
-        }
-
-        .division-card:hover .card-icon {
-            transform: scale(1.2) rotate(10deg);
-        }
-
-        .division-card h3 {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-            position: relative;
-            z-index: 1;
-        }
-
-        .division-card p {
-            color: rgba(255, 255, 255, 0.7);
-            line-height: 1.6;
-            position: relative;
-            z-index: 1;
-        }
-
-        .card-link {
-            display: inline-block;
-            margin-top: 1.5rem;
-            padding: 0.8rem 2rem;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            color: #fff;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            position: relative;
-            z-index: 1;
-        }
-
-        .card-link:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4);
-        }
-
-        /* About Section */
-        .about {
-            padding: 8rem 5%;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .about-container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .section-title {
-            font-size: clamp(2.5rem, 5vw, 4rem);
-            text-align: center;
-            margin-bottom: 3rem;
-            background: linear-gradient(135deg, #fff, var(--primary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s ease;
-        }
-
-        .section-title.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .about-content {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(99, 102, 241, 0.2);
-            border-radius: 24px;
-            padding: 4rem;
-            backdrop-filter: blur(20px);
-            opacity: 0;
-            transform: translateY(50px);
-            transition: all 0.8s ease;
-        }
-
-        .about-content.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .about-content h3 {
-            font-size: 2rem;
-            color: var(--primary);
-            margin: 2rem 0 1rem;
-        }
-
-        .about-content p {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            color: rgba(255, 255, 255, 0.8);
-            margin-bottom: 1.5rem;
-        }
-
-        .about-content ul {
-            list-style: none;
-            margin: 2rem 0;
-        }
-
-        .about-content li {
-            padding: 1rem 0;
-            border-bottom: 1px solid rgba(99, 102, 241, 0.1);
-            font-size: 1.1rem;
-            color: rgba(255, 255, 255, 0.8);
-            position: relative;
-            padding-left: 2rem;
-        }
-
-        .about-content li::before {
-            content: '→';
-            position: absolute;
-            left: 0;
-            color: var(--primary);
-            font-weight: bold;
-        }
-
-        .pillars {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin: 3rem 0;
-        }
-
-        .pillar {
-            background: rgba(99, 102, 241, 0.05);
-            padding: 2rem;
-            border-radius: 16px;
-            border: 1px solid rgba(99, 102, 241, 0.2);
-            transition: all 0.3s ease;
-        }
-
-        .pillar:hover {
-            transform: translateY(-5px);
-            border-color: var(--primary);
-            box-shadow: 0 10px 40px rgba(99, 102, 241, 0.2);
-        }
-
-        .pillar h4 {
-            font-size: 1.5rem;
-            color: var(--primary);
-            margin-bottom: 1rem;
-        }
-
-        /* Footer */
-        footer {
-            padding: 4rem 5%;
-            border-top: 1px solid rgba(99, 102, 241, 0.2);
-            background: rgba(15, 15, 35, 0.5);
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 3rem;
-        }
-
-        .footer-section h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1.5rem;
-            color: var(--primary);
-        }
-
-        .footer-links {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 0.8rem;
-        }
-
-        .footer-links a {
-            color: rgba(255, 255, 255, 0.7);
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .footer-links a:hover {
-            color: var(--primary);
-        }
-
-        .social-links {
-            display: flex;
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-
-        .social-icon {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: rgba(99, 102, 241, 0.1);
-            border: 1px solid rgba(99, 102, 241, 0.3);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #fff;
-            text-decoration: none;
-            font-size: 1.5rem;
-            transition: all 0.3s ease;
-        }
-
-        .social-icon:hover {
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
-        }
-
-        .footer-bottom {
-            text-align: center;
-            margin-top: 3rem;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(99, 102, 241, 0.1);
-            color: rgba(255, 255, 255, 0.5);
-        }
-
-        /* Particles */
-        .particles {
-            position: absolute;
-            inset: 0;
-            overflow: hidden;
-            pointer-events: none;
-        }
-
-        .particle {
-            position: absolute;
-            width: 2px;
-            height: 2px;
-            background: var(--primary);
-            border-radius: 50%;
-            animation: float 15s infinite;
-            opacity: 0.3;
-        }
-
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0) translateX(0);
-            }
-            25% {
-                transform: translateY(-100px) translateX(50px);
-            }
-            50% {
-                transform: translateY(-50px) translateX(-50px);
-            }
-            75% {
-                transform: translateY(-150px) translateX(100px);
-            }
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .nav-links {
-                gap: 1.5rem;
-                font-size: 0.9rem;
-            }
-
-            .divisions {
-                grid-template-columns: 1fr;
-                padding: 0 1rem;
-            }
-
-            .about-content {
-                padding: 2rem;
-            }
-
-            .pillars {
-                grid-template-columns: 1fr;
-            }
-
-            body {
-                cursor: auto;
-            }
-
-            .cursor, .cursor-follower {
-                display: none;
-            }
-        }
-    </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Rubland Smoke Houses — Trusted in Kerala</title>
+  <meta name="description" content="Rubland Smoke Houses — smokehouse design, installations and accessories. Accredited by the Rubber Board of India." />
+  <meta name="theme-color" content="#5C4638">
+  <!-- Fonts & small libs -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/vanilla-tilt@1.7.3/dist/vanilla-tilt.min.js"></script>
+  <script src="https://unpkg.com/gsap@3.12.2/dist/gsap.min.js"></script>
+  <script src="https://unpkg.com/gsap@3.12.2/dist/ScrollTrigger.min.js"></script>
+
+  <style>
+/* ===================================================================
+   Rubland - Single file site
+   - Use assets/*.png / *.jpg as placeholders
+   - Replace placeholder images with exact rubland images
+   ===================================================================*/
+
+/* ---------- Root colors & base ---------- */
+:root{
+  --bg:#FBF8F6;
+  --card:#FFFFFF;
+  --muted:#6b6b6b;
+  --char:#262626;
+  --wood:#5C4638;
+  --glow:#FF8C42;
+  --success:#21a179;
+  --radius:14px;
+  --maxw:1200px;
+  --glass: rgba(255,255,255,0.6);
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  background:linear-gradient(180deg,#fff 0%, #fbfaf8 60%);
+  font-family:'Poppins',system-ui,-apple-system,"Segoe UI",Roboto,Arial;
+  color:var(--char);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  scroll-behavior:smooth;
+}
+
+/* ---------- container ---------- */
+.container{max-width:var(--maxw);margin:0 auto;padding:0 20px}
+
+/* ---------- top nav ---------- */
+.topbar{
+  position:sticky;top:0;z-index:120;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:12px 0;background:linear-gradient(180deg, rgba(255,255,255,0.86), rgba(255,255,255,0.75));
+  backdrop-filter: blur(6px);border-bottom:1px solid rgba(0,0,0,0.04);
+}
+.brand{display:flex;gap:12px;align-items:center}
+.logo{width:60px;height:60px;border-radius:12px;background:linear-gradient(135deg,var(--wood), #7b5b4b);display:flex;align-items:center;justify-content:center;color:white;font-weight:800;font-size:22px;box-shadow:0 10px 28px rgba(92,70,56,0.12)}
+.brand h1{font-size:18px;margin:0}
+.brand p{margin:0;color:var(--muted);font-size:12px}
+.nav{display:flex;gap:14px;align-items:center}
+.nav a{font-weight:600;font-size:14px;padding:8px 12px;border-radius:10px}
+.nav a:hover{background:rgba(0,0,0,0.03)}
+.cta{background:var(--glow);padding:9px 14px;border-radius:12px;color:#fff;font-weight:700;box-shadow:0 10px 30px rgba(255,140,66,0.14)}
+.hamburger{display:none;cursor:pointer;font-weight:700;padding:8px 10px}
+
+/* ---------- hero ---------- */
+.hero{position:relative;padding:60px 0 30px;overflow:hidden}
+.hero-grid{display:grid;grid-template-columns:1fr 520px;gap:36px;align-items:center}
+.hero-left h1{font-size:44px;margin:0 0 12px;line-height:1.02}
+.hero-left p{color:var(--muted);margin:0 0 18px;font-size:15px;max-width:64ch}
+.hero-cta{display:flex;gap:12px;margin-top:8px}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:12px 16px;border-radius:12px;border:1px solid rgba(0,0,0,0.06);background:var(--card);cursor:pointer;font-weight:700}
+.btn.primary{background:linear-gradient(90deg,var(--glow),#ff9f5f);color:#fff;box-shadow:0 16px 48px rgba(255,140,66,0.12)}
+.small-stat{background:linear-gradient(180deg, rgba(255,255,255,0.96), rgba(255,255,255,0.9));padding:10px;border-radius:12px;display:flex;gap:10px;align-items:center;border:1px solid rgba(0,0,0,0.03)}
+.small-stat .dot{width:10px;height:10px;border-radius:3px;background:var(--glow)}
+
+/* hero visual */
+.hero-visual{position:relative;border-radius:var(--radius);overflow:hidden;box-shadow:0 30px 60px rgba(40,40,40,0.06);border:1px solid rgba(0,0,0,0.04);height:460px}
+.hero-image{position:absolute;inset:0;background-size:cover;background-position:center;transform:scale(1.02)}
+.hero-glass{position:absolute;inset:0;background:linear-gradient(180deg, rgba(0,0,0,0.06), rgba(255,255,255,0.02));pointer-events:none}
+.smoke-canvas{position:absolute;inset:0;pointer-events:none;z-index:6}
+
+/* ---------- sections ---------- */
+section{padding:70px 0}
+.section-title{font-size:22px;margin:0 0 12px}
+.lead{color:var(--muted);line-height:1.6;margin:0 0 12px}
+
+/* ---------- two-column layouts ---------- */
+.grid-2{display:grid;grid-template-columns:1fr 380px;gap:28px;align-items:start}
+
+/* ---------- products ---------- */
+.products-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.product{background:var(--card);border-radius:12px;padding:14px;border:1px solid rgba(0,0,0,0.04);transition:transform .45s cubic-bezier(.2,.9,.3,1),box-shadow .35s}
+.product:hover{transform:translateY(-10px) rotateX(3deg);box-shadow:0 40px 80px rgba(92,70,56,0.06)}
+.product img{width:100%;height:180px;object-fit:cover;border-radius:8px}
+.product h4{margin:10px 0 6px}
+
+/* ---------- advantages ---------- */
+.advantages{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.adv{background:var(--card);padding:18px;border-radius:12px;text-align:center;border:1px solid rgba(0,0,0,0.04)}
+
+/* ---------- installations & counters ---------- */
+.counters{display:flex;gap:18px;align-items:center}
+.counter{padding:18px;border-radius:12px;background:var(--card);border:1px solid rgba(0,0,0,0.04);text-align:center}
+.counter strong{display:block;font-size:28px}
+
+/* ---------- news ticker ---------- */
+.ticker-wrap{overflow:hidden;border-radius:10px;border:1px solid rgba(0,0,0,0.04);background:linear-gradient(90deg,#fff,#fff);padding:10px}
+.ticker{display:flex;gap:40px;align-items:center;white-space:nowrap}
+
+/* ---------- gallery ---------- */
+.gallery-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.gallery-grid img{width:100%;height:150px;object-fit:cover;border-radius:8px;cursor:pointer;transition:transform .25s}
+.gallery-grid img:hover{transform:scale(1.03)}
+
+/* ---------- testimonials ---------- */
+.testimonials{display:grid;grid-template-columns:1fr 340px;gap:22px;align-items:start}
+.test-card{background:linear-gradient(180deg,#fff,#fff);padding:16px;border-radius:12px;box-shadow:0 20px 40px rgba(24,24,24,0.06);border:1px solid rgba(0,0,0,0.04)}
+
+/* ---------- clients carousel ---------- */
+.clients{display:flex;gap:18px;align-items:center;overflow:hidden;padding:12px;border-radius:12px;border:1px solid rgba(0,0,0,0.04);background:linear-gradient(180deg,#fff,#fff)}
+
+/* ---------- contact/enquiry ---------- */
+.contact-grid{display:grid;grid-template-columns:1fr 360px;gap:22px;align-items:start}
+input,textarea{width:100%;padding:12px;border-radius:10px;border:1px solid rgba(0,0,0,0.08);font-size:14px}
+
+/* ---------- footer ---------- */
+footer{padding:28px 0;background:linear-gradient(180deg,#fff,#faf7f5);border-top:1px solid rgba(0,0,0,0.03)}
+.footer-grid{display:flex;justify-content:space-between;align-items:center;gap:14px}
+
+/* ---------- floating JJ badge ---------- */
+.jj-badge{position:fixed;right:18px;bottom:18px;background:var(--card);padding:10px 12px;border-radius:12px;box-shadow:0 14px 30px rgba(92,70,56,0.12);display:flex;gap:10px;align-items:center;border:1px solid rgba(0,0,0,0.04);z-index:90}
+.jj-badge img{width:40px;height:40px;border-radius:8px}
+
+/* ---------- lightbox/modal ---------- */
+.lightbox{position:fixed;inset:0;background:rgba(0,0,0,0.75);display:flex;align-items:center;justify-content:center;z-index:220;opacity:0;pointer-events:none;transition:opacity .25s}
+.lightbox.show{opacity:1;pointer-events:auto}
+.lightbox img{max-width:92%;max-height:86%;border-radius:8px;box-shadow:0 30px 80px rgba(0,0,0,0.6)}
+.modal{background:var(--card);border-radius:12px;padding:18px;max-width:980px;width:calc(100% - 32px);box-shadow:0 40px 100px rgba(0,0,0,0.6)}
+
+/* ---------- small helpers ---------- */
+.muted{color:var(--muted)}
+.center{display:flex;align-items:center;justify-content:center}
+.pill{padding:6px 10px;border-radius:999px;background:#fff;border:1px solid rgba(0,0,0,0.04);font-weight:700}
+.hidden{display:none}
+
+/* ---------- responsive ---------- */
+@media (max-width:1100px){
+  .hero-grid{grid-template-columns:1fr}
+  .grid-2{grid-template-columns:1fr}
+  .products-grid{grid-template-columns:repeat(2,1fr)}
+  .gallery-grid{grid-template-columns:repeat(2,1fr)}
+  .nav{display:none}
+  .hamburger{display:block}
+}
+@media (max-width:640px){
+  .products-grid{grid-template-columns:1fr}
+  .gallery-grid{grid-template-columns:1fr}
+  .clients{overflow:auto}
+  .testimonials{grid-template-columns:1fr}
+  .contact-grid{grid-template-columns:1fr}
+  .hero-left h1{font-size:28px}
+  .hero-visual{height:320px}
+}
+
+  </style>
 </head>
 <body>
-    <!-- Custom Cursor -->
-    <div class="cursor"></div>
-    <div class="cursor-follower"></div>
 
-    <!-- Header -->
-    <header id="header">
-        <nav>
-            <div class="logo">
-                <img src="logo.jpg" alt="JJ Coders Logo">
-                <span>JJ Coders</span>
-            </div>
-            <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="build.html">Build</a></li>
-                <li><a href="learn.html">Learn</a></li>
-                <li><a href="automate.html">Automate</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
-
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <div class="hero-bg"></div>
-        <div class="particles" id="particles"></div>
-        <div class="hero-content">
-            <h1>We Build. We Teach. We Automate.</h1>
-            <p>Empowering the next generation of innovators through technology, education, and intelligent automation.</p>
-            
-            <div class="divisions">
-                <div class="division-card" data-delay="0.2">
-                    <div class="card-icon">🚀</div>
-                    <h3>Build</h3>
-                    <p>We craft beautiful, scalable websites & apps that bring your vision to life with cutting-edge technology.</p>
-                    <a href="build.html" class="card-link">Explore Build</a>
-                </div>
-
-                <div class="division-card" data-delay="0.4">
-                    <div class="card-icon">🎓</div>
-                    <h3>Learn</h3>
-                    <p>Learn AI, coding, and robotics through real projects designed to transform beginners into tech leaders.</p>
-                    <a href="learn.html" class="card-link">Start Learning</a>
-                </div>
-        
-
-                <div class="division-card" data-delay="0.6">
-                    <div class="card-icon">⚡</div>
-                    <h3>Automate</h3>
-                    <p>Intelligent automations for businesses and workflows that save time and boost productivity.</p>
-                    <a href="automate.html" class="card-link">Automate Now</a>
-                </div>
-            </div>
+  <!-- TOP NAV -->
+  <header class="topbar">
+    <div class="container" style="display:flex;align-items:center;justify-content:space-between">
+      <div style="display:flex;align-items:center;gap:12px">
+        <div class="logo" role="img" aria-label="Rubland Logo">
+          <img src="assets/logo.png" alt="Rubland logo" style="width:48px;height:48px;object-fit:cover;border-radius:8px">
         </div>
+        <div class="brand">
+          <h1>Rubland Smoke Houses</h1>
+          <p>Accredited by Rubber Board of India • Since 2005</p>
+        </div>
+      </div>
+
+      <nav class="nav" aria-label="Main Navigation">
+        <a href="#home">Home</a>
+        <a href="#about">About us</a>
+        <a href="#products">Products</a>
+        <a href="#clients">Clients</a>
+        <a href="#testimonials">Testimonials</a>
+        <a href="#contact">Contact</a>
+        <a href="#enquiry">Enquiry</a>
+        <a href="#locations">Locations</a>
+        <a class="cta" href="tel:+919745344800">Call / WhatsApp: +91 9745344800</a>
+      </nav>
+
+      <div class="hamburger" aria-hidden id="mobileMenuBtn">☰</div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <main>
+    <section id="home" class="hero" aria-labelledby="homeHeading">
+      <div class="container hero-grid">
+        <div class="hero-left">
+          <h1 id="homeHeading">Accredited by Rubber Board of India</h1>
+          <p class="lead"><strong>Rubber Smoke House</strong> — more than 1000 rubber smoke houses inside Kerala</p>
+          <p class="muted">Rubland industries have been a recognized name in the kerala since 2005 and it is managed by Mr. Soy Vattapillil.</p>
+
+          <div class="hero-cta" style="margin-top:16px">
+            <button class="btn primary" onclick="scrollTo('products')">DETAILS</button>
+            <button class="btn" onclick="scrollTo('contact')">CALL / WHATSAPP</button>
+          </div>
+
+          <div style="height:20px"></div>
+
+          <div style="display:flex;gap:12px;flex-wrap:wrap">
+            <div class="small-stat">
+              <div class="dot"></div>
+              <div>
+                <div style="font-weight:800">more than 1000</div>
+                <div class="muted">rubber smoke houses inside Kerala</div>
+              </div>
+            </div>
+
+            <div class="small-stat">
+              <div style="width:10px;height:10px;background:#6b6b6b;border-radius:3px"></div>
+              <div>
+                <div style="font-weight:800">RUB LAND FIRE TECH INCINERATOR</div>
+                <div class="muted">Waste Treatment Process</div>
+              </div>
+            </div>
+
+            <div class="small-stat">
+              <div style="width:10px;height:10px;background:var(--success);border-radius:3px"></div>
+              <div>
+                <div style="font-weight:800">Contact</div>
+                <div class="muted">+91 9745344800 • info@rubland.com</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-visual" aria-hidden>
+          <div id="heroImage" class="hero-image" style="background-image:url('assets/hero.jpg')"></div>
+          <div class="hero-glass"></div>
+          <canvas id="smokeCanvas" class="smoke-canvas"></canvas>
+
+          <div style="position:absolute;left:20px;bottom:18px;display:flex;gap:12px;z-index:8">
+            <div class="small-stat"><div style="width:10px;height:10px;background:var(--glow);border-radius:3px"></div><div><strong>Since 2005</strong><div class="muted" style="font-size:12px">Experience & Installations</div></div></div>
+            <div class="small-stat"><div style="width:10px;height:10px;background:#4f4f4f;border-radius:3px"></div><div><strong>Kerala</strong><div class="muted" style="font-size:12px">Thodupuzha / Karimannoor</div></div></div>
+          </div>
+
+        </div>
+      </div>
     </section>
 
-    <!-- About Section -->
-    <section class="about" id="about">
-        <div class="about-container">
-            <h2 class="section-title">About JJ Coders</h2>
-            <div class="about-content">
-                <p>JJ Coders is a pioneering platform dedicated to empowering individuals and businesses in the world of technology. Founded by <strong>Johan Jomet</strong>, a 12-year-old tech prodigy, our mission is to make learning, building, and automating in technology simple, fun, and accessible to everyone—whether you're a beginner, a student, or an aspiring tech entrepreneur.</p>
+    <!-- ABOUT -->
+    <section id="about" aria-labelledby="aboutHeading">
+      <div class="container">
+        <h3 class="section-title" id="aboutHeading">Welcome to Rubland</h3>
+        <div class="grid-2">
+          <div>
+            <p class="lead">Rubland industries have been a recognized name in the kerala since 2005 and it is managed by <strong>Mr. Soy Vattapillil</strong>. We design and build robust smoke houses and allied products to help planters obtain higher-quality Ribbed Smoked Sheet (RSS).</p>
 
-                <p>Founded with the vision of bridging the gap between traditional learning and real-world tech applications, JJ Coders focuses on three core pillars:</p>
+            <p class="lead muted" style="margin-top:12px">Natural rubber in India is mainly produced by small holder farmers. Due to the lack of appropriate dryers, a significant portion of production is sold as low-grade Ribbed Smoked Sheet. Smoking sheets improves grade and value. Rubland's systems and services help increase the quality and price of rubber produced by planters.</p>
 
-                <div class="pillars">
-                    <div class="pillar">
-                        <h4>1. Build</h4>
-                        <p>We help individuals and businesses turn ideas into fully functional digital solutions. From responsive websites to interactive web applications and automation systems, our team guides you through creating technology that works.</p>
-                    </div>
+            <div style="height:18px"></div>
 
-                    <div class="pillar">
-                        <h4>2. Learn</h4>
-                        <p>At JJ Coders, learning isn't just about coding—it's about understanding how technology can solve real problems. Our courses and tutorials cover web development, coding languages, automation tools, and innovative tech skills that prepare learners for the future.</p>
-                    </div>
-
-                    <div class="pillar">
-                        <h4>3. Automate</h4>
-                        <p>Automation is at the heart of modern business and personal productivity. We provide solutions that streamline repetitive tasks, optimize workflows, and enhance efficiency, giving our clients more time to focus on creativity and growth.</p>
-                    </div>
-                </div>
-
-                <p>Despite being only 12 years old, our founder Johan Jomet has already demonstrated the passion and skill to create real-world tech solutions, inspiring other young minds to explore coding, automation, and digital innovation.</p>
-
-                <h3>Why Choose JJ Coders?</h3>
-                <ul>
-                    <li>Expert guidance in web development, coding, and automation.</li>
-                    <li>Beginner-friendly and advanced courses for all skill levels.</li>
-                    <li>Real-world projects that enhance your portfolio and skills.</li>
-                    <li>A supportive community that encourages collaboration and creativity.</li>
-                </ul>
-
-                <p>At JJ Coders, we're more than just a learning platform—we're a launchpad for your ideas. Whether you want to build websites, automate tasks, or learn to code, JJ Coders is your partner in navigating the digital world with confidence and creativity.</p>
-
-                <p style="text-align: center; font-size: 1.3rem; margin-top: 2rem; color: var(--primary);"><strong>Join us today and start your journey in building, learning, and automating with JJ Coders!</strong></p>
+            <div class="card">
+              <h4 style="margin:0 0 8px">Company Profile</h4>
+              <p class="muted" style="margin:0">Rubland is committed to quality installations, technical support and durable products. Our product line includes smoke houses, burners, chimneys, fans, fireboxes and complete process kits.</p>
             </div>
+
+            <div style="height:14px"></div>
+
+            <div class="card">
+              <h4 style="margin:0 0 8px">Our Advantages</h4>
+              <ul style="margin:0;padding-left:18px;color:var(--muted)">
+                <li>Durable construction and materials</li>
+                <li>Cost-effective solutions for smallholders</li>
+                <li>Accredited quality standards</li>
+                <li>Local after-sales support & spare parts</li>
+              </ul>
+            </div>
+
+          </div>
+
+          <aside>
+            <div class="card">
+              <h4 style="margin:0 0 8px">Contact & Office Hours</h4>
+              <p class="muted" style="margin:0">Phone: <a href="tel:+919745344800">+91 9745344800</a></p>
+              <p class="muted" style="margin:0">Email: <a href="mailto:info@rubland.com">info@rubland.com</a></p>
+              <p class="muted" style="margin:0">Office: Thodupuzha Road, Karimannoor P.O., Idukki, Kerala</p>
+              <div style="height:8px"></div>
+              <div class="muted">Office Hours</div>
+              <div class="muted" style="font-weight:700">Mon-Fri: 10am - 8pm</div>
+              <div class="muted">Sat: By Special Appointment • Sun: Closed</div>
+            </div>
+
+            <div style="height:12px"></div>
+
+            <div class="card">
+              <h4 style="margin:0 0 8px">Brochure</h4>
+              <p class="muted" style="margin:0">Download product brochure and installation details (replace with actual file link)</p>
+              <div style="height:12px"></div>
+              <a class="btn" href="#" onclick="alert('Replace with brochure link')">Download Brochure</a>
+            </div>
+
+          </aside>
         </div>
+      </div>
     </section>
 
-    <!-- Footer -->
-    <footer id="contact">
-        <div class="footer-content">
-            <div class="footer-section">
-                <h3>JJ Coders</h3>
-                <p style="color: rgba(255, 255, 255, 0.7);">Empowering the next generation through technology, education, and innovation.</p>
+    <!-- PRODUCTS -->
+    <section id="products" aria-labelledby="productsHeading">
+      <div class="container">
+        <h3 class="section-title" id="productsHeading">Our Product</h3>
+        <p class="lead">Rubland is the name of trust in rubber smoke house building for rubber planters in Kerala.</p>
+
+        <div style="height:18px"></div>
+
+        <div class="products-grid" id="productsGrid">
+
+          <!-- Product 1 -->
+          <article class="product tilt" data-tilt data-tilt-max="8" data-tilt-glare="true" data-tilt-scale="1.03" aria-labelledby="p1">
+            <img src="assets/product1.jpg" alt="Rubland Smoke House" loading="lazy">
+            <h4 id="p1">RUBBER SMOKE HOUSE</h4>
+            <p class="muted">Cheaper compare to other smoke house available in market but stronger and durable. (Replace with full product text from rubland.com)</p>
+            <div style="height:10px"></div>
+            <div style="display:flex;gap:8px">
+              <button class="btn" onclick="openProductModal('RUBBER SMOKE HOUSE','assets/product1.jpg','Cheaper compared to other smoke houses but stronger and robust. Capacities available: 180, 300, 400, 600, 800, 1200 sheets. Replace with exact details from site.')">DETAILS</button>
+              <a class="btn" href="mailto:info@rubland.com?subject=Enquiry%20Rubber%20Smoke%20House">ENQUIRE</a>
+            </div>
+          </article>
+
+          <!-- Product 2 -->
+          <article class="product tilt" data-tilt data-tilt-max="8" data-tilt-glare="true" data-tilt-scale="1.03" aria-labelledby="p2">
+            <img src="assets/product2.jpg" alt="Rubland Fire Tech Incinerator" loading="lazy">
+            <h4 id="p2">RUB LAND FIRE TECH INCINETER</h4>
+            <p class="muted">Waste Treatment Process. Rubland's incinerator is constructed of heavy, well-insulated materials (replace with exact text).</p>
+            <div style="height:10px"></div>
+            <div style="display:flex;gap:8px">
+              <button class="btn" onclick="openProductModal('RUB LAND FIRE TECH INCINETER','assets/product2.jpg','Heavy, well insulated incinerator for waste treatment. Replace with full specifications from rubland.com')">DETAILS</button>
+              <a class="btn" href="mailto:info@rubland.com?subject=Enquiry%20Incinerator">ENQUIRE</a>
+            </div>
+          </article>
+
+          <!-- Product 3 -->
+          <article class="product tilt" data-tilt data-tilt-max="8" data-tilt-glare="true" data-tilt-scale="1.03" aria-labelledby="p3">
+            <img src="assets/product3.jpg" alt="Ribbed Smoked Sheet" loading="lazy">
+            <h4 id="p3">RIBBED SMOKED SHEET</h4>
+            <p class="muted">Rubland is the name of trust in rubber smoke house building in rubber (replace with full text).</p>
+            <div style="height:10px"></div>
+            <div style="display:flex;gap:8px">
+              <button class="btn" onclick="openProductModal('RIBBED SMOKED SHEET','assets/product3.jpg','Details about Ribbed Smoked Sheet, quality improvements and benefits; replace with exact text from rubland.com')">DETAILS</button>
+              <a class="btn" href="mailto:info@rubland.com?subject=Enquiry%20Ribbed%20Smoked%20Sheet">ENQUIRE</a>
+            </div>
+          </article>
+
+          <!-- Product 4 -->
+          <article class="product tilt" data-tilt data-tilt-max="8" data-tilt-glare="true" data-tilt-scale="1.03" aria-labelledby="p4">
+            <img src="assets/product4.jpg" alt="Chimney & Fans" loading="lazy">
+            <h4 id="p4">CHIMNEY • FANS • BURNERS</h4>
+            <p class="muted">Chimneys designed for optimal airflow with durable fans and efficient burners (replace with exact text).</p>
+            <div style="height:10px"></div>
+            <div style="display:flex;gap:8px">
+              <button class="btn" onclick="openProductModal('CHIMNEY • FANS • BURNERS','assets/product4.jpg','Chimney and fan specs, materials and installation notes. Replace with rubland.com content')">DETAILS</button>
+              <a class="btn" href="mailto:info@rubland.com?subject=Enquiry%20Chimney%20Fans">ENQUIRE</a>
+            </div>
+          </article>
+
+          <!-- Product 5 -->
+          <article class="product tilt" data-tilt data-tilt-max="8" data-tilt-glare="true" data-tilt-scale="1.03" aria-labelledby="p5">
+            <img src="assets/product5.jpg" alt="Firebox" loading="lazy">
+            <h4 id="p5">FIREBOX</h4>
+            <p class="muted">Insulated fireboxes with efficient fuel usage and stable temperature control. (Replace with exact rubland.com description)</p>
+            <div style="height:10px"></div>
+            <div style="display:flex;gap:8px">
+              <button class="btn" onclick="openProductModal('FIREBOX','assets/product5.jpg','Insulated firebox details — replace with exact content from rubland.com')">DETAILS</button>
+              <a class="btn" href="mailto:info@rubland.com?subject=Enquiry%20Firebox">ENQUIRE</a>
+            </div>
+          </article>
+
+          <!-- Product 6 -->
+          <article class="product tilt" data-tilt data-tilt-max="8" data-tilt-glare="true" data-tilt-scale="1.03" aria-labelledby="p6">
+            <img src="assets/product6.jpg" alt="Accessories" loading="lazy">
+            <h4 id="p6">ACCESSORIES & SPARE PARTS</h4>
+            <p class="muted">Accessories required for maintenance and upgrades. (Replace with exact text and list from rubland site.)</p>
+            <div style="height:10px"></div>
+            <div style="display:flex;gap:8px">
+              <button class="btn" onclick="openProductModal('ACCESSORIES & SPARE PARTS','assets/product6.jpg','Accessories, spare parts list, replace with exact rubland.com text')">DETAILS</button>
+              <a class="btn" href="mailto:info@rubland.com?subject=Enquiry%20Accessories">ENQUIRE</a>
+            </div>
+          </article>
+
+        </div> <!-- end products grid -->
+
+        <div style="height:18px"></div>
+        <div class="center"><a class="btn" href="#downloads">View all Brochures & Downloads</a></div>
+      </div>
+    </section>
+
+    <!-- ADVANTAGES -->
+    <section id="advantages" aria-labelledby="advHeading">
+      <div class="container">
+        <h3 class="section-title" id="advHeading">Our Advantages</h3>
+        <p class="lead">(Replace bullet points below with the exact "Our Advantages" copy from rubland.com whenever you paste content.)</p>
+
+        <div style="height:12px"></div>
+
+        <div class="advantages">
+          <div class="adv">
+            <h4>Built to Last</h4>
+            <p class="muted">Durable construction with quality materials for long service life.</p>
+          </div>
+          <div class="adv">
+            <h4>Certified</h4>
+            <p class="muted">Accredited by the Rubber Board of India and local standards.</p>
+          </div>
+          <div class="adv">
+            <h4>Experience</h4>
+            <p class="muted">Hundreds of satisfied rubber planters across Kerala.</p>
+          </div>
+          <div class="adv">
+            <h4>Support</h4>
+            <p class="muted">On-ground support and spare parts availability.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- INSTALLATIONS & NEWS -->
+    <section id="installations" aria-labelledby="instHeading">
+      <div class="container">
+        <h3 class="section-title" id="instHeading">Installations & News</h3>
+
+        <div style="display:flex;gap:18px;align-items:flex-start;flex-wrap:wrap">
+          <div style="flex:1;min-width:320px">
+            <div class="counters">
+              <div class="counter">
+                <strong id="countInstall">0</strong>
+                <div class="muted">Smoke houses installed</div>
+              </div>
+              <div class="counter">
+                <strong id="countYears">0</strong>
+                <div class="muted">Years of service</div>
+              </div>
+              <div class="counter">
+                <strong id="countClients">0</strong>
+                <div class="muted">Satisfied planters</div>
+              </div>
             </div>
 
-            <div class="footer-section">
-                <h3>Quick Links</h3>
-                <ul class="footer-links">
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="build.html">Build</a></li>
-                    <li><a href="learn.html">Teach</a></li>
-                    <li><a href="automate.html">Automate</a></li>
-                    <li><a href="policies.html">Policies</a></li>
-                </ul>
+            <div style="height:12px"></div>
+
+            <div class="ticker-wrap">
+              <div id="newsTicker" class="ticker">
+                <div>Domestic Rubber Price — 01 September 2016 — Daily and weekly rubber price and Rubland's Latest Rubber Smoke House Price</div>
+                <div>1000+ installations in 8 Years — We had successfully built more than 1000 rubber smoke houses inside Kerala from Thiruvananthapuram to Kasargod.</div>
+                <div>New FireTech Incinerator — Model updates and specifications released.</div>
+              </div>
+            </div>
+          </div>
+
+          <div style="width:360px;min-width:260px">
+            <div class="card center" style="height:180px;flex-direction:column;gap:8px">
+              <div style="font-weight:800">Our Recent Works</div>
+              <div class="muted">Photos & case studies of completed installations</div>
             </div>
 
-            <div class="footer-section">
-                <h3>Contact Us</h3>
-                <p style="color: rgba(255, 255, 255, 0.7); margin-bottom: 1rem;">
-                    📧 jjcoders.jjco@gmail.com<br>
-                    📱 +91 9446071043
-                </p>
-                <div class="social-links">
-                    <a href="https://wa.me/919446071043" class="social-icon" title="WhatsApp"> <img src="wa.jpg"></a>
-                    <a href="mailto:jjcoders.jjco@gmail.com" class="social-icon" title="Email">✉️</a>
+            <div style="height:12px"></div>
+
+            <div class="card">
+              <strong>Our Partner</strong>
+              <p class="muted">Excelsis Deo Developers</p>
+              <p class="muted">Facebook • More partners</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- RECENT WORKS / GALLERY -->
+    <section id="gallerySection">
+      <div class="container">
+        <h3 class="section-title">Gallery / Recent Works</h3>
+        <p class="lead">Below are installation photos and workshop images. Replace these placeholders with exact images from rubland.com/images/</p>
+
+        <div style="height:12px"></div>
+        <div class="gallery-grid">
+          <img src="assets/gallery-1.jpg" alt="Gallery 1" data-full="assets/gallery-1.jpg">
+          <img src="assets/gallery-2.jpg" alt="Gallery 2" data-full="assets/gallery-2.jpg">
+          <img src="assets/gallery-3.jpg" alt="Gallery 3" data-full="assets/gallery-3.jpg">
+          <img src="assets/gallery-4.jpg" alt="Gallery 4" data-full="assets/gallery-4.jpg">
+        </div>
+      </div>
+    </section>
+
+    <!-- CLIENTS -->
+    <section id="clients">
+      <div class="container">
+        <h3 class="section-title">Our Clients</h3>
+        <p class="lead">Hundreds of satisfied rubber planters across Kerala and partnering developers.</p>
+
+        <div style="height:12px"></div>
+
+        <div class="clients" id="clientsRow" aria-hidden>
+          <img src="assets/client1.png" alt="client1" style="height:48px;opacity:0.9">
+          <img src="assets/client2.png" alt="client2" style="height:48px;opacity:0.9">
+          <img src="assets/client3.png" alt="client3" style="height:48px;opacity:0.9">
+          <img src="assets/client4.png" alt="client4" style="height:48px;opacity:0.9">
+          <img src="assets/client5.png" alt="client5" style="height:48px;opacity:0.9">
+        </div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section id="testimonials">
+      <div class="container">
+        <h3 class="section-title">Testimonials</h3>
+        <div class="testimonials">
+          <div>
+            <div id="testSlider" class="card" style="padding:24px">
+              <blockquote style="margin:0;font-size:18px;line-height:1.6">"Rubland helped me upgrade my smoke house — the new system improved the grade of my sheets and I got a higher price for my produce."</blockquote>
+              <div style="height:12px"></div>
+              <div style="display:flex;gap:12px;align-items:center">
+                <div style="width:56px;height:56px;border-radius:8px;background:#eee"></div>
+                <div>
+                  <div style="font-weight:700">Satisfied Planter</div>
+                  <div class="muted">Location, Kerala</div>
                 </div>
+              </div>
             </div>
+
+            <div style="height:12px"></div>
+
+            <div class="card">
+              <strong>Information</strong>
+              <p class="muted">Home • Enquiry • Clients • Domestic Price • Profile • Office Hours</p>
+            </div>
+          </div>
+
+          <aside>
+            <div class="card">
+              <h4>Support Hotline</h4>
+              <p class="muted">Our support Hotline is available 8 Hours a day</p>
+              <p class="muted">Monday-Friday: 10am to 8pm</p>
+              <p class="muted">Saturday – Sunday: By Special Appointment</p>
+            </div>
+          </aside>
         </div>
+      </div>
+    </section>
 
-        <div class="footer-bottom">
-            <p>&copy; 2025 JJ Coders. Founded by Johan Jomet. All rights reserved.</p>
+    <!-- DOWNLOADS / BROCHURES -->
+    <section id="downloads">
+      <div class="container">
+        <h3 class="section-title">Brochure / Downloads</h3>
+        <div style="display:flex;gap:12px;flex-wrap:wrap">
+          <div class="card" style="min-width:240px;flex:1">
+            <strong>Product Brochure</strong>
+            <p class="muted">Download — Product brochure (replace with actual PDF)</p>
+            <div style="height:8px"></div>
+            <a class="btn" href="#" onclick="alert('Replace with actual brochure link')">Download</a>
+          </div>
+          <div class="card" style="min-width:240px;flex:1">
+            <strong>Installation Manual</strong>
+            <p class="muted">Step-by-step commissioning guide (replace link)</p>
+            <div style="height:8px"></div>
+            <a class="btn" href="#" onclick="alert('Replace with actual installation guide link')">Download</a>
+          </div>
         </div>
-    </footer>
+      </div>
+    </section>
 
-    <script>
-        // Custom Cursor
-        const cursor = document.querySelector('.cursor');
-        const follower = document.querySelector('.cursor-follower');
-        let mouseX = 0, mouseY = 0;
-        let followerX = 0, followerY = 0;
+    <!-- CONTACT -->
+    <section id="contact">
+      <div class="container">
+        <h3 class="section-title">Contact</h3>
+        <div class="contact-grid">
+          <div>
+            <form id="contactForm" onsubmit="return fakeSubmit(event)">
+              <input type="text" id="name" placeholder="Your name" required>
+              <input type="email" id="email" placeholder="Your email" required>
+              <input type="tel" id="phone" placeholder="Phone (optional)">
+              <textarea id="message" rows="5" placeholder="Message" required></textarea>
+              <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:8px">
+                <button class="btn primary" type="submit">Send Message</button>
+                <a class="btn" href="https://wa.me/919745344800" target="_blank" rel="noopener">WhatsApp</a>
+                <a class="btn" href="mailto:info@rubland.com">Email</a>
+              </div>
+            </form>
+          </div>
 
-        document.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
-            cursor.style.left = mouseX + 'px';
-            cursor.style.top = mouseY + 'px';
-        });
+          <aside>
+            <div class="card">
+              <strong>Contact</strong>
+              <p class="muted">Phone: <a href="tel:+919745344800">+91 9745344800</a></p>
+              <p class="muted">Email: <a href="mailto:info@rubland.com">info@rubland.com</a></p>
+              <p class="muted">Address: Thodupuzha Road, Karimannoor P.O., Idukki, Kerala</p>
+            </div>
+            <div style="height:12px"></div>
+            <div class="card">
+              <div class="map-placeholder" role="img" aria-label="Map placeholder">Map placeholder — replace with Google Map iframe</div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
 
-        function animateFollower() {
-            followerX += (mouseX - followerX) * 0.1;
-            followerY += (mouseY - followerY) * 0.1;
-            follower.style.left = followerX + 'px';
-            follower.style.top = followerY + 'px';
-            requestAnimationFrame(animateFollower);
-        }
-        animateFollower();
+    <!-- ENQUIRY (anchor) -->
+    <section id="enquiry">
+      <div class="container">
+        <h3 class="section-title">Enquiry</h3>
+        <p class="lead">Use this quick form for sales enquiries or to request a site visit.</p>
+        <div style="height:12px"></div>
+        <div class="card" style="padding:18px">
+          <form id="enqForm" onsubmit="return fakeEnqSubmit(event)">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+              <input type="text" id="enqName" placeholder="Full name" required>
+              <input type="tel" id="enqPhone" placeholder="Phone number" required>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px">
+              <input type="text" id="village" placeholder="Village / Location">
+              <input type="text" id="productOfInterest" placeholder="Product of interest">
+            </div>
+            <textarea id="enqMsg" rows="4" placeholder="Message / requirements" style="margin-top:12px"></textarea>
+            <div style="margin-top:12px"><button class="btn primary" type="submit">Send Enquiry</button></div>
+          </form>
+        </div>
+      </div>
+    </section>
 
-        // Cursor hover effect
-        const hoverElements = document.querySelectorAll('a, button, .division-card');
-        hoverElements.forEach(el => {
-            el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
-            el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
-        });
+    <!-- LOCATIONS -->
+    <section id="locations">
+      <div class="container">
+        <h3 class="section-title">Locations</h3>
+        <p class="lead">We operate across Kerala — from Thiruvananthapuram to Kasargod. Contact us for a site visit.</p>
 
-        // Header scroll effect
-        window.addEventListener('scroll', () => {
-            const header = document.getElementById('header');
-            if (window.scrollY > 100) {
-                header.classList.add('scrolled');
-            } else {
-                header.classList.remove('scrolled');
-            }
-        });
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px">
+          <div class="card"><strong>Thodupuzha / Karimannoor</strong><div class="muted">Main workshop & office</div></div>
+          <div class="card"><strong>Kottayam / KKL</strong><div class="muted">Service center</div></div>
+          <div class="card"><strong>Kozhikode / Kozh</strong><div class="muted">Regional support</div></div>
+        </div>
+      </div>
+    </section>
 
-        // Scroll animations
-        const observerOptions = {
-            threshold: 0.2,
-            rootMargin: '0px 0px -100px 0px'
-        };
+  </main>
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, observerOptions);
+  <!-- FOOTER -->
+  <footer>
+    <div class="container footer-grid">
+      <div>
+        <strong>Rubland Smoke Houses</strong>
+        <div class="muted">© <span id="year"></span> Rubland Industries • All rights reserved</div>
+        <div class="muted" style="margin-top:8px">info@rubland.com • +91 9745344800</div>
+      </div>
 
-        document.querySelectorAll('.division-card, .section-title, .about-content').forEach(el => {
-            observer.observe(el);
-        });
+      <div style="display:flex;gap:12px;align-items:center">
+        <div class="muted">Website by</div>
+        <div style="display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:10px;background:linear-gradient(180deg,#fff,#fff);box-shadow:0 10px 24px rgba(92,70,56,0.08);border:1px solid rgba(0,0,0,0.04)">
+          <img src="assets/jj-logo.png" alt="JJ Coders" style="width:44px;height:44px;border-radius:8px">
+          <div style="font-weight:800">JJ Coders</div>
+        </div>
+      </div>
+    </div>
+  </footer>
 
-        // Staggered card animations
-        document.querySelectorAll('.division-card').forEach((card, index) => {
-            card.style.transitionDelay = `${index * 0.2}s`;
-        });
+  <!-- Floating JJ badge -->
+  <div class="jj-badge" aria-hidden>
+    <img src="assets/jj-logo.png" alt="JJ Coders">
+    <div style="font-size:13px"><strong>JJ Coders</strong><div class="muted" style="font-size:11px">Build AI • Robotics • Web</div></div>
+  </div>
 
-        // Particles
-        const particlesContainer = document.getElementById('particles');
-        for (let i = 0; i < 50; i++) {
-            const particle = document.createElement('div');
-            particle.className = 'particle';
-            particle.style.left = Math.random() * 100 + '%';
-            particle.style.top = Math.random() * 100 + '%';
-            particle.style.animationDelay = Math.random() * 15 + 's';
-            particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
-            particlesContainer.appendChild(particle);
-        }
+  <!-- LIGHTBOX -->
+  <div id="lightbox" class="lightbox" onclick="hideLightbox()"><img src="" alt="lightbox"></div>
 
-        // Smooth scroll
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-            });
-        });
+  <!-- PRODUCT MODAL -->
+  <div id="productModal" class="lightbox" style="align-items:center;justify-content:center;display:none">
+    <div id="productModalCard" class="modal" role="dialog" aria-labelledby="productModalTitle"></div>
+  </div>
 
-        // Parallax effect
-        window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            const parallaxElements = document.querySelectorAll('.hero-bg, .particles');
-            parallaxElements.forEach(el => {
-                el.style.transform = `translateY(${scrolled * 0.5}px)`;
-            });
-        });
-    </script>
+  <script>
+/* ===========================
+   Rubland site JS - animations & UX
+   =========================== */
+
+/* small helpers */
+function $(sel){return document.querySelector(sel)}
+function $$(sel){return Array.from(document.querySelectorAll(sel))}
+
+/* smooth scroll helper */
+function scrollTo(id){
+  const el = document.getElementById(id)
+  if(el) el.scrollIntoView({behavior:'smooth',block:'start'})
+}
+
+/* fake contact submit */
+function fakeSubmit(e){
+  e.preventDefault()
+  const name = $('#name').value || 'Friend'
+  alert('Thanks ' + name + '! Message sent (demo). For production integrate an email endpoint.')
+  e.target.reset()
+  return false
+}
+function fakeEnqSubmit(e){
+  e.preventDefault()
+  const name = $('#enqName').value || 'Friend'
+  alert('Enquiry received from ' + name + ' (demo). We will contact you.')
+  e.target.reset()
+  return false
+}
+
+/* basic counters */
+function animateCounter(id, to, dur){
+  const el = document.getElementById(id)
+  if(!el) return
+  let start = 0
+  const step = Math.max(1, Math.floor(to/(dur/30)))
+  const iv = setInterval(()=>{
+    start += step
+    if(start >= to){ el.textContent = to; clearInterval(iv) } else el.textContent = start
+  },30)
+}
+
+/* Intersection Observer trigger for counters and reveals */
+document.addEventListener('DOMContentLoaded', ()=>{
+  document.getElementById('year').textContent = new Date().getFullYear()
+
+  // counters observer
+  const installTarget = document.getElementById('installations') || document.getElementById('installations')
+  const countersObserver = new IntersectionObserver((entries, obs)=>{
+    entries.forEach(ent=>{
+      if(ent.isIntersecting){
+        animateCounter('countInstall', 1000, 1400) // replace with real
+        animateCounter('countYears', 20, 1000)
+        animateCounter('countClients', 800, 1200)
+        obs.disconnect()
+      }
+    })
+  }, {threshold:0.4})
+  const insSec = document.getElementById('installations') || document.getElementById('installations')
+  if(insSec) countersObserver.observe(insSec)
+
+  // stagger reveal using GSAP
+  if(window.gsap){
+    gsap.utils.toArray('section').forEach((sec, i)=>{
+      gsap.from(sec, {
+        opacity:0, y:24, duration:0.9, delay:0.08*i, ease:'power2.out',
+        scrollTrigger: { trigger: sec, start: 'top 85%' }
+      })
+    })
+  }
+
+  // vanilla-tilt init for .tilt
+  if(window.VanillaTilt){
+    VanillaTilt.init(document.querySelectorAll('.tilt'), {max:10, speed:400, glare:true, "max-glare":0.12})
+  }
+
+  // lightbox listeners for gallery
+  $$('.gallery-grid img').forEach(img=>{
+    img.addEventListener('click', ()=> {
+      const lb = $('#lightbox'); lb.querySelector('img').src = img.dataset.full || img.src; lb.classList.add('show')
+    })
+  })
+
+  // setup product modal close on Esc
+  document.addEventListener('keydown', e=>{
+    if(e.key === 'Escape') { hideLightbox(); closeProductModal() }
+  })
+
+  // basic marquee for news ticker
+  const ticker = $('#newsTicker')
+  if(ticker){
+    // duplicate children to create loop
+    const children = Array.from(ticker.children)
+    children.forEach(child => ticker.appendChild(child.cloneNode(true)))
+    let offset = 0
+    function tickLoop(){
+      offset += 0.6
+      if(offset > ticker.scrollWidth/2) offset = 0
+      ticker.scrollLeft = offset
+      requestAnimationFrame(tickLoop)
+    }
+    tickLoop()
+  }
+
+})
+
+/* product modal functions */
+function openProductModal(title, img, desc){
+  const modal = $('#productModal')
+  const card = $('#productModalCard')
+  card.innerHTML = `
+    <div style="display:flex;gap:18px;flex-wrap:wrap;align-items:flex-start">
+      <div style="flex:1;min-width:260px"><img src="${img}" alt="${title}" style="width:100%;height:260px;object-fit:cover;border-radius:8px"></div>
+      <div style="flex:1;min-width:260px">
+        <h2 id="productModalTitle" style="margin:0 0 8px">${title}</h2>
+        <p class="muted" style="margin:0 0 12px">${desc}</p>
+        <div style="display:flex;gap:8px;margin-top:12px">
+          <a class="btn primary" href="mailto:info@rubland.com?subject=Enquiry%20${encodeURIComponent(title)}">Contact for Quote</a>
+          <button class="btn" onclick="closeProductModal()">Close</button>
+        </div>
+      </div>
+    </div>
+  `
+  modal.style.display = 'flex'
+  setTimeout(()=> modal.classList.add('show'), 20)
+}
+function closeProductModal(){
+  const modal = $('#productModal')
+  modal.classList.remove('show')
+  setTimeout(()=> modal.style.display = 'none', 250)
+}
+
+/* lightbox hide */
+function hideLightbox(){
+  const lb = $('#lightbox'); lb.classList.remove('show'); setTimeout(()=>{ lb.querySelector('img').src='' }, 260)
+}
+
+/* smoke canvas */
+;(function(){
+  const c = document.getElementById('smokeCanvas'); if(!c) return
+  const ctx = c.getContext('2d'); let W, H; function resize(){ W = c.width = c.clientWidth; H = c.height = c.clientHeight }
+  window.addEventListener('resize', resize); resize()
+  function rnd(a,b){return Math.random()*(b-a)+a}
+  class Puff {
+    constructor(){ this.reset() }
+    reset(){ this.x = rnd(W*0.05, W*0.95); this.y = H + rnd(0, 200); this.vx = rnd(-0.25,0.25); this.vy=rnd(-0.35,-1.1); this.size=rnd(40,180); this.alpha=rnd(0.04,0.16) }
+    update(){ this.x+=this.vx; this.y+=this.vy; this.alpha -= 0.0009; if(this.alpha <= 0 || this.y < -200) this.reset() }
+    draw(){
+      const g = ctx.createRadialGradient(this.x,this.y, this.size*0.05, this.x,this.y, this.size)
+      g.addColorStop(0, `rgba(255,160,64,${(this.alpha*0.36)})`)
+      g.addColorStop(1, 'rgba(30,30,30,0)')
+      ctx.fillStyle = g; ctx.beginPath(); ctx.arc(this.x,this.y,this.size,0,Math.PI*2); ctx.fill()
+    }
+  }
+  const parts = Array.from({length:20}, ()=> new Puff())
+  function loop(){ ctx.clearRect(0,0,W,H); parts.forEach(p=>{p.update();p.draw()}); requestAnimationFrame(loop) }
+  loop()
+})()
+
+/* clients auto-scroll */
+;(function(){
+  const row = $('#clientsRow'); if(!row) return
+  let pos = 0
+  function step(){
+    pos += 0.4
+    if(pos > row.scrollWidth/2) pos = 0
+    row.scrollLeft = pos
+    requestAnimationFrame(step)
+  }
+  step()
+})()
+
+/* small image fallback */
+document.querySelectorAll('img').forEach(img=>{
+  img.addEventListener('error', ()=> {
+    img.src = 'data:image/svg+xml;utf8,' + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="700"><rect width="100%" height="100%" fill="#efefef"/><text x="50%" y="50%" font-size="20" text-anchor="middle" fill="#666">Image missing — replace with file from rubland.com/images/</text></svg>`)
+  })
+})
+
+/* mobile menu (simple) */
+const mobileBtn = document.getElementById('mobileMenuBtn')
+mobileBtn && mobileBtn.addEventListener('click', ()=>{
+  const nav = document.querySelector('.nav')
+  if(nav.style.display === 'flex'){ nav.style.display = 'none' } else { nav.style.display = 'flex'; nav.style.flexDirection='column'; nav.style.position='absolute'; nav.style.right='20px'; nav.style.top='70px'; nav.style.background='#fff'; nav.style.padding='12px'; nav.style.borderRadius='8px'; nav.style.boxShadow='0 12px 40px rgba(0,0,0,0.08)'}
+})
+
+  </script>
+
 </body>
 </html>
