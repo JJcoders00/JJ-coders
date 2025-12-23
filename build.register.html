@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JJ Coders Build | Premium Registration</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Tailwind Config for Custom Colors/Fonts -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#0ea5e9', // Sky blue
+                            600: '#0284c7',
+                            900: '#0c4a6e',
+                            accent: '#8b5cf6', // Violet
+                        },
+                        dark: {
+                            bg: '#030712', // Very dark blue/gray
+                            card: '#0f172a',
+                        }
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'slide-up': 'slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+                        'fade-in': 'fadeIn 1s ease-out forwards',
+                        'spin-slow': 'spin 12s linear infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(40px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        },
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Glassmorphism Utilities */
+        .glass-card {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .glass-input {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .glass-input:focus {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: #0ea5e9;
+            box-shadow: 0 0 15px rgba(14, 165, 233, 0.3);
+            outline: none;
+        }
+
+        /* Floating Label Logic */
+        .floating-input:focus ~ label,
+        .floating-input:not(:placeholder-shown) ~ label {
+            transform: translateY(-28px) scale(0.85);
+            color: #38bdf8;
+        }
+        
+        /* Select dropdown arrow fix for dark mode */
+        select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%239ca3af' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+            background-position: right 0.5rem center;
+            background-repeat: no-repeat;
+            background-size: 1.5em 1.5em;
+        }
+
+        /* Background Glows */
+        .bg-glow-1 {
+            background: radial-gradient(circle, rgba(14, 165, 233, 0.15) 0%, rgba(0,0,0,0) 70%);
+        }
+        .bg-glow-2 {
+            background: radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, rgba(0,0,0,0) 70%);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #030712; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1e293b; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #334155; 
+        }
+
+        /* Button Shine Effect */
+        .btn-shine {
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-shine::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+        }
+        .btn-shine:hover::after {
+            left: 100%;
+            transition: 0.5s;
+        }
+    </style>
+</head>
+<body class="bg-dark-bg text-gray-200 min-h-screen font-sans selection:bg-brand-500 selection:text-white overflow-x-hidden relative">
+
+    <!-- Ambient Background Effects -->
+    <div class="fixed inset-0 pointer-events-none z-0">
+        <div class="absolute top-0 left-1/4 w-[600px] h-[600px] bg-glow-1 rounded-full mix-blend-screen filter blur-3xl opacity-60 animate-pulse-slow"></div>
+        <div class="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-glow-2 rounded-full mix-blend-screen filter blur-3xl opacity-50 animate-float" style="animation-delay: 1s;"></div>
+        <div class="absolute top-1/3 right-1/3 w-[300px] h-[300px] bg-blue-900/20 rounded-full filter blur-3xl animate-pulse"></div>
+        
+        <!-- Grid Pattern Overlay -->
+        <div class="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03]"></div>
+        <div class="absolute inset-0" style="background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px); background-size: 50px 50px;"></div>
+    </div>
+
+    <!-- Main Content Wrapper -->
+    <div class="relative z-10 flex flex-col justify-center items-center min-h-screen p-4 sm:p-6 lg:p-8">
+        
+        <!-- 1️⃣ Header Section -->
+        <header class="text-center mb-8 animate-slide-up space-y-4">
+            <div class="inline-flex items-center gap-2 bg-white/5 border border-white/10 rounded-full px-4 py-1.5 mb-4 backdrop-blur-sm shadow-lg hover:border-brand-500/50 transition-colors duration-300">
+                <div class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></div>
+                <span class="text-xs font-semibold tracking-wide uppercase text-gray-300">JJ Coders Build</span>
+            </div>
+            
+            <h1 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white mb-2 drop-shadow-lg">
+                Register Your <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-accent">Website</span>
+            </h1>
+            
+            <p class="text-lg text-gray-400 max-w-lg mx-auto font-light leading-relaxed">
+                Start your website journey with JJ Coders Build. High-performance development for modern brands.
+            </p>
+        </header>
+
+        <!-- 2️⃣ Form Container -->
+        <main class="w-full max-w-2xl animate-slide-up" style="animation-delay: 0.1s;">
+            
+            <div class="glass-card rounded-3xl p-1 shadow-2xl overflow-hidden">
+                <!-- Inner Gradient Border Effect -->
+                <div class="absolute inset-0 bg-gradient-to-b from-white/10 to-transparent pointer-events-none rounded-3xl"></div>
+                
+                <div class="bg-dark-card/60 rounded-[22px] p-6 sm:p-10 relative">
+                    
+                    <!-- Trust Block -->
+                    <div class="flex flex-wrap items-center justify-center gap-6 mb-8 pb-8 border-b border-white/5">
+                        <div class="flex items-center gap-2 text-sm text-gray-400 group">
+                            <i data-lucide="shield-check" class="w-5 h-5 text-brand-500 group-hover:scale-110 transition-transform"></i>
+                            <span>No Spam</span>
+                        </div>
+                        <div class="flex items-center gap-2 text-sm text-gray-400 group">
+                            <i data-lucide="users" class="w-5 h-5 text-brand-500 group-hover:scale-110 transition-transform"></i>
+                            <span>Real Developers</span>
+                        </div>
+                        <div class="flex items-center gap-2 text-sm text-gray-400 group">
+                            <i data-lucide="zap" class="w-5 h-5 text-brand-500 group-hover:scale-110 transition-transform"></i>
+                            <span>Fast Response</span>
+                        </div>
+                    </div>
+
+                    <!-- 3️⃣ Registration Form -->
+                    <form id="registrationForm" class="space-y-6" >
+                        
+                        <!-- Row 1: Name & Email -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- Full Name -->
+                            <div class="relative group">
+                                <input type="text" id="fullname" name="fullname" required placeholder=" " 
+                                    class="glass-input floating-input w-full px-5 py-4 rounded-xl text-base bg-transparent appearance-none peer"
+                                >
+                                <label for="fullname" 
+                                    class="absolute left-5 top-4 text-gray-500 text-base duration-300 transform -translate-y-0 scale-100 origin-[0] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-85 peer-focus:-translate-y-7 pointer-events-none bg-dark-card/0 px-1">
+                                    Full Name <span class="text-red-400">*</span>
+                                </label>
+                                <i data-lucide="user" class="absolute right-4 top-4 w-5 h-5 text-gray-600 peer-focus:text-brand-500 transition-colors"></i>
+                            </div>
+
+                            <!-- Email -->
+                            <div class="relative group">
+                                <input type="email" id="email" name="email" required placeholder=" " 
+                                    class="glass-input floating-input w-full px-5 py-4 rounded-xl text-base bg-transparent appearance-none peer"
+                                >
+                                <label for="email" 
+                                    class="absolute left-5 top-4 text-gray-500 text-base duration-300 transform -translate-y-0 scale-100 origin-[0] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-85 peer-focus:-translate-y-7 pointer-events-none bg-dark-card/0 px-1">
+                                    Email Address <span class="text-red-400">*</span>
+                                </label>
+                                <i data-lucide="mail" class="absolute right-4 top-4 w-5 h-5 text-gray-600 peer-focus:text-brand-500 transition-colors"></i>
+                            </div>
+                        </div>
+
+                        <!-- Row 2: WhatsApp & Type -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- WhatsApp -->
+                            <div class="relative group">
+                                <input type="tel" id="whatsapp" name="whatsapp" required placeholder=" " 
+                                    class="glass-input floating-input w-full px-5 py-4 rounded-xl text-base bg-transparent appearance-none peer"
+                                >
+                                <label for="whatsapp" 
+                                    class="absolute left-5 top-4 text-gray-500 text-base duration-300 transform -translate-y-0 scale-100 origin-[0] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-85 peer-focus:-translate-y-7 pointer-events-none bg-dark-card/0 px-1">
+                                    WhatsApp Number <span class="text-red-400">*</span>
+                                </label>
+                                <i data-lucide="phone" class="absolute right-4 top-4 w-5 h-5 text-gray-600 peer-focus:text-brand-500 transition-colors"></i>
+                            </div>
+
+                            <!-- Website Type -->
+                            <div class="relative group">
+                                <select id="type" name="type" required 
+                                    class="glass-input w-full px-5 py-4 rounded-xl text-base bg-transparent appearance-none text-gray-300 focus:text-white cursor-pointer"
+                                >
+                                    <option value="" disabled selected class="bg-gray-900 text-gray-500">Select Website Type</option>
+                                    <option value="business" class="bg-gray-900">Business / Corporate</option>
+                                    <option value="ecommerce" class="bg-gray-900">Shop / E-commerce</option>
+                                    <option value="youtube" class="bg-gray-900">YouTube Channel / Creator</option>
+                                    <option value="portfolio" class="bg-gray-900">Portfolio / Personal</option>
+                                    <option value="other" class="bg-gray-900">Other</option>
+                                </select>
+                                <i data-lucide="layout" class="absolute right-10 top-4 w-5 h-5 text-gray-600 peer-focus:text-brand-500 transition-colors pointer-events-none"></i>
+                            </div>
+                        </div>
+
+                        <!-- Row 3: Brand Name (Optional) -->
+                        <div class="relative group">
+                            <input type="text" id="brandname" name="brandname" placeholder=" " 
+                                class="glass-input floating-input w-full px-5 py-4 rounded-xl text-base bg-transparent appearance-none peer"
+                            >
+                            <label for="brandname" 
+                                class="absolute left-5 top-4 text-gray-500 text-base duration-300 transform -translate-y-0 scale-100 origin-[0] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-85 peer-focus:-translate-y-7 pointer-events-none bg-dark-card/0 px-1">
+                                Website / Brand Name <span class="text-xs text-gray-600">(Optional)</span>
+                            </label>
+                            <i data-lucide="globe" class="absolute right-4 top-4 w-5 h-5 text-gray-600 peer-focus:text-brand-500 transition-colors"></i>
+                        </div>
+
+                        <!-- Row 4: Description -->
+                        <div class="relative group">
+                            <textarea id="description" name="description" rows="3" placeholder=" " 
+                                class="glass-input floating-input w-full px-5 py-4 rounded-xl text-base bg-transparent appearance-none peer resize-none"
+                            ></textarea>
+                            <label for="description" 
+                                class="absolute left-5 top-4 text-gray-500 text-base duration-300 transform -translate-y-0 scale-100 origin-[0] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-85 peer-focus:-translate-y-7 pointer-events-none bg-dark-card/0 px-1">
+                                Short Description of your idea...
+                            </label>
+                        </div>
+
+                        <!-- 4️⃣ Submit Button -->
+                        <div class="pt-4">
+                            <button type="submit" id="submitBtn" 
+                                class="btn-shine w-full group relative flex items-center justify-center gap-3 bg-gradient-to-r from-brand-600 to-accent px-8 py-4 rounded-xl font-bold text-white shadow-lg shadow-brand-500/30 hover:shadow-brand-500/50 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300"
+                            >
+                                <span id="btnText" class="tracking-wide">Submit Website Request</span>
+                                <i data-lucide="arrow-right" id="btnIcon" class="w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
+                                
+                                <!-- Loading Spinner (Hidden by default) -->
+                                <svg id="btnSpinner" class="animate-spin h-5 w-5 text-white hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                </svg>
+                            </button>
+                        </div>
+
+                    </form>
+
+                    <!-- 5️⃣ Footer -->
+                    <div class="mt-6 text-center">
+                        <p class="text-sm text-gray-500 flex items-center justify-center gap-2">
+                            <i data-lucide="check-circle" class="w-4 h-4 text-green-500"></i>
+                            We personally review every request.
+                        </p>
+                        <p class="text-xs text-gray-600 mt-2">
+                            You’ll hear back from us shortly via WhatsApp or Email.
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+            
+            <!-- Bottom decorative line -->
+            <div class="w-full h-px bg-gradient-to-r from-transparent via-white/10 to-transparent mt-12"></div>
+            <div class="text-center mt-6 text-xs text-gray-600 font-display uppercase tracking-widest">
+                JJ Coders Build &copy; 2025
+            </div>
+
+        </main>
+    </div>
+
+    <script type="module">
+    // Initialize lucide icons
+    lucide.createIcons();
+
+    // Import Firebase
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
+    import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js";
+
+    // Firebase config
+    const firebaseConfig = {
+        apiKey: "AIzaSyCnNTZn9BWahRW5bBcOcHQuZbGxfiMM4WE",
+        authDomain: "jjcoders-build.firebaseapp.com",
+        projectId: "jjcoders-build",
+        storageBucket: "jjcoders-build.firebasestorage.app",
+        messagingSenderId: "858267112704",
+        appId: "1:858267112704:web:0132605e782772c128cfe5"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    // Form submission handler
+    async function handleFakeSubmit() {
+        const btn = document.getElementById('submitBtn');
+        const btnText = document.getElementById('btnText');
+        const btnIcon = document.getElementById('btnIcon');
+        const btnSpinner = document.getElementById('btnSpinner');
+        const form = document.getElementById('registrationForm');
+
+        // Disable button to prevent multiple clicks
+        btn.disabled = true;
+
+        // 1️⃣ Loading state
+        btnText.textContent = "Processing...";
+        btnIcon.classList.add('hidden');
+        btnSpinner.classList.remove('hidden');
+        btn.classList.add('opacity-80', 'cursor-wait');
+
+        try {
+            // 2️⃣ Add data to Firestore
+            await addDoc(collection(db, "registrations"), {
+                fullname: form.fullname.value,
+                email: form.email.value,
+                whatsapp: form.whatsapp.value,
+                type: form.type.value,
+                brandname: form.brandname.value || "",
+                description: form.description.value || "",
+                createdAt: serverTimestamp()
+            });
+            
+
+            // 3️⃣ Success state
+            btnText.textContent = "Request Sent Successfully!";
+            btnSpinner.classList.add('hidden');
+            btn.classList.remove('from-brand-600', 'to-accent', 'opacity-80', 'cursor-wait');
+            btn.classList.add('bg-green-600', 'hover:bg-green-700');
+
+            // Add check icon
+            const checkIcon = document.createElement('i');
+            checkIcon.setAttribute('data-lucide', 'check');
+            checkIcon.classList.add('w-5', 'h-5', 'animate-bounce');
+            btn.appendChild(checkIcon);
+            lucide.createIcons();
+
+            // Reset form after delay
+            setTimeout(() => {
+                form.reset();
+                btnText.textContent = "Submit Website Request";
+                btn.classList.remove('bg-green-600', 'hover:bg-green-700');
+                btn.classList.add('from-brand-600', 'to-accent');
+                if (checkIcon) btn.removeChild(checkIcon);
+                btnIcon.classList.remove('hidden');
+                btn.disabled = false;
+            }, 1500);
+
+        } catch (error) {
+            console.error("Error adding document: ", error);
+            btnText.textContent = "Error! Try Again";
+            btnSpinner.classList.add('hidden');
+            btn.classList.remove('opacity-80', 'cursor-wait');
+            btn.classList.add('bg-red-600');
+            btn.disabled = false;
+        }
+    }
+
+    // Form submission listener
+    const form = document.getElementById("registrationForm");
+    form.addEventListener("submit", (e) => {
+        e.preventDefault();  // Prevent page reload
+        handleFakeSubmit();  // Call submission handler
+    });
+
+    // Optional: simple parallax effect for background blobs
+    document.addEventListener('mousemove', (e) => {
+        const blobs = document.querySelectorAll('.animate-float, .animate-pulse-slow');
+        blobs.forEach(blob => {
+            const speed = 20;
+            const x = (window.innerWidth - e.pageX * speed) / 100;
+            const y = (window.innerHeight - e.pageY * speed) / 100;
+            blob.style.transform = `translate(${x}px, ${y}px)`;
+        });
+    });
+</script>
+
+
+
+</body>
+</html>

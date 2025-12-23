@@ -1,48 +1,509 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>JJ Coders Build — Coming Soon</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Inter:wght@400&display=swap" rel="stylesheet">
-<style>
-:root{
-  --bg:#050612;--brand1:#6d28d9;--brand2:#2563eb;--text:#eef6ff;--muted:#9aa8c0;
-}
-*{box-sizing:border-box;margin:0;padding:0}
-body{
-  height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;
-  background:radial-gradient(circle at 20% 30%,rgba(109,40,217,.2),transparent 60%),
-             radial-gradient(circle at 80% 70%,rgba(37,99,235,.2),transparent 60%),
-             var(--bg);
-  color:var(--text);font-family:Inter,sans-serif;text-align:center;overflow:hidden;
-}
-h1{font-family:Poppins,sans-serif;font-size:clamp(2rem,6vw,4rem);margin-bottom:.6em;}
-p{color:var(--muted);max-width:600px;margin:0 auto 1.6em;}
-.progress{width:320px;max-width:80vw;height:14px;background:rgba(255,255,255,0.08);border-radius:10px;overflow:hidden;margin:1em auto;}
-.bar{height:100%;width:70%;background:linear-gradient(90deg,var(--brand2),var(--brand1));border-radius:inherit;transition:width .8s;}
-.note{margin-top:.4em;color:var(--muted);font-size:.9rem;}
-.btn{
-  display:inline-block;margin-top:1.8em;padding:12px 22px;border-radius:12px;
-  background:linear-gradient(90deg,var(--brand2),var(--brand1));color:#fff;font-weight:700;text-decoration:none;
-  box-shadow:0 8px 24px rgba(37,99,235,.25);transition:transform .3s;
-}
-.btn:hover{transform:translateY(-3px);}
-footer{position:absolute;bottom:20px;font-size:.85rem;color:var(--muted);}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JJ Coders Build | Premium Websites. Accessible Pricing.</title>
+    <meta name="description" content="We build insanely beautiful websites at an unbelievably affordable price.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Custom Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                        mono: ['Space Grotesk', 'monospace'],
+                    },
+                    colors: {
+                        jj: {
+                            dark: '#030712', // Slate 950
+                            accent: '#6366f1', // Indigo 500
+                            glow: '#a855f7', // Purple 500
+                            cyan: '#06b6d4'  // Cyan 500
+                        }
+                    },
+                    animation: {
+                        'blob': 'blob 7s infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Utilities & Effects */
+        body {
+            background-color: #02040a;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        .text-gradient {
+            background: linear-gradient(to right, #6366f1, #a855f7, #06b6d4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 200% auto;
+            animation: gradientMove 5s linear infinite;
+        }
+
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Glassmorphism Cards */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .glass-card:hover {
+            border-color: rgba(168, 85, 247, 0.4);
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.2);
+        }
+
+        /* Scroll Reveal Animation Classes */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Iframe Scaling Container */
+        .browser-mockup {
+            border-radius: 0.75rem;
+            overflow: hidden;
+            position: relative;
+            background: #1e293b;
+            height: 400px;
+            transition: transform 0.4s ease;
+        }
+        
+        .browser-header {
+            background: #0f172a;
+            padding: 0.75rem;
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+            border-bottom: 1px solid #334155;
+        }
+        
+        .dot {
+            width: 0.6rem;
+            height: 0.6rem;
+            border-radius: 50%;
+        }
+
+        .iframe-wrapper {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Scale down the iframe to show more content */
+        .iframe-scaler {
+            width: 200%;
+            height: 200%;
+            border: 0;
+            transform: scale(0.5);
+            transform-origin: 0 0;
+            pointer-events: none; /* Disable interaction initially for scroll performance */
+        }
+
+        .browser-mockup:hover .iframe-scaler {
+            pointer-events: auto;
+        }
+        
+        .browser-mockup:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px -10px rgba(99, 102, 241, 0.3);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #02040a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #6366f1;
+        }
+    </style>
 </head>
-<body>
-  <h1>🚧 Build Division — Coming Soon</h1>
-  <p>We’re crafting powerful, lightning-fast websites and digital products for JJ Coders Build.  
-     The page is almost ready — check back soon or contact us to get early access.</p>
+<body class="antialiased selection:bg-purple-500 selection:text-white">
 
-  <div class="progress"><div class="bar" style="width:70%"></div></div>
-  <div class="note">Progress : 70 % complete</div>
+    <!-- Navbar -->
+    <nav class="fixed top-0 w-full z-50 glass-card border-b-0 border-b-slate-800">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <i data-lucide="code-2" class="text-purple-500 w-8 h-8"></i>
+                <span class="text-xl font-bold tracking-tight font-mono">JJ CODERS</span>
+            </div>
+            <a href="#portfolio" class="hidden md:block text-sm font-semibold text-gray-300 hover:text-white transition-colors">Our Work</a>
+        </div>
+    </nav>
 
-  <a href="index.html" class="btn">← Back to Home</a>
-  <footer>© 2025 JJ Coders · We Build. We Learn. We Automate.</footer>
+    <!-- Background Elements -->
+    <div class="fixed inset-0 z-[-1] overflow-hidden pointer-events-none">
+        <div class="absolute top-0 -left-4 w-72 h-72 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
+        <div class="absolute top-0 -right-4 w-72 h-72 bg-cyan-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
+        <div class="absolute -bottom-8 left-20 w-72 h-72 bg-indigo-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
+    </div>
 
-  <script async="async" data-cfasync="false" src="//pl28119121.effectivegatecpm.com/03a6d186b6a7b378355861e3b08b6490/invoke.js"></script>
-<div id="container-03a6d186b6a7b378355861e3b08b6490"></div>
+    <!-- HERO SECTION -->
+    <section class="min-h-screen flex flex-col justify-center items-center relative px-6 pt-20">
+        <div class="text-center max-w-4xl mx-auto space-y-8">
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card border-purple-500/30 reveal">
+                <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
+                <span class="text-xs font-mono uppercase tracking-widest text-gray-300">Accepting New Projects</span>
+            </div>
+            
+            <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold leading-tight tracking-tight reveal" style="transition-delay: 100ms;">
+                Premium Websites.<br>
+                <span class="text-gradient">Accessible Pricing.</span>
+            </h1>
+            
+            <p class="text-lg md:text-2xl text-gray-400 max-w-2xl mx-auto font-light reveal" style="transition-delay: 200ms;">
+                We don't just build websites. We engineer digital experiences that look expensive, perform flawlessly, and fit your budget.
+            </p>
+
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center reveal" style="transition-delay: 300ms;">
+                <a href="#portfolio" class="group relative px-8 py-4 bg-white text-black font-bold text-lg rounded-full overflow-hidden transition-all hover:scale-105">
+                    <span class="relative z-10 flex items-center gap-2">
+                        View Our Work 
+                        <i data-lucide="arrow-right" class="w-4 h-4 transition-transform group-hover:translate-x-1"></i>
+                    </span>
+                    <div class="absolute inset-0 bg-gradient-to-r from-purple-400 to-cyan-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                </a>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce opacity-50">
+            <i data-lucide="chevron-down" class="w-8 h-8 text-white"></i>
+        </div>
+    </section>
+
+    <!-- VALUE PROPOSITION -->
+    <section class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-3xl md:text-5xl font-bold mb-4">Why we are different.</h2>
+                <p class="text-gray-400">Most agencies charge for the brand. We charge for the code.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="glass-card p-8 rounded-2xl reveal hover:-translate-y-2 transition-transform duration-300">
+                    <div class="w-12 h-12 bg-purple-500/20 rounded-lg flex items-center justify-center mb-6 text-purple-400">
+                        <i data-lucide="zap" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Blazing Performance</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        We write clean, optimized logic. No bloated page builders. Your site will load fast and rank higher on Google.
+                    </p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="glass-card p-8 rounded-2xl reveal hover:-translate-y-2 transition-transform duration-300" style="transition-delay: 100ms;">
+                    <div class="w-12 h-12 bg-cyan-500/20 rounded-lg flex items-center justify-center mb-6 text-cyan-400">
+                        <i data-lucide="palette" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Aesthetic Perfection</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Motion, gradients, and typography. We utilize modern design psychology to make your visitors trust you instantly.
+                    </p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="glass-card p-8 rounded-2xl reveal hover:-translate-y-2 transition-transform duration-300" style="transition-delay: 200ms;">
+                    <div class="w-12 h-12 bg-indigo-500/20 rounded-lg flex items-center justify-center mb-6 text-indigo-400">
+                        <i data-lucide="smartphone" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Mobile First</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Over 70% of traffic is mobile. We design for the phone first, ensuring your site feels like a native app.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- COMPARISON SECTION -->
+    <section class="py-20 bg-slate-950/50">
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="reveal">
+                <h2 class="text-3xl font-bold text-center mb-12">The Reality Check</h2>
+                <div class="glass-card rounded-2xl overflow-hidden">
+                    <div class="grid grid-cols-3 text-center border-b border-gray-800 bg-gray-900/50 text-sm md:text-base font-bold">
+                        <div class="p-6 text-gray-500">Typical Agency</div>
+                        <div class="p-6 text-gray-500">DIY Templates</div>
+                        <div class="p-6 text-purple-400 bg-purple-500/10 border-b-2 border-purple-500">JJ Coders Build</div>
+                    </div>
+                    
+                    <!-- Row 1 -->
+                    <div class="grid grid-cols-3 text-center items-center border-b border-gray-800/50 text-sm">
+                        <div class="p-6 text-gray-400">Expensive ($2000+)</div>
+                        <div class="p-6 text-gray-400">Cheap Monthly Fees</div>
+                        <div class="p-6 text-white font-semibold bg-purple-500/5">Affordable One-Time</div>
+                    </div>
+
+                    <!-- Row 2 -->
+                    <div class="grid grid-cols-3 text-center items-center border-b border-gray-800/50 text-sm">
+                        <div class="p-6 text-gray-400">Slow Turnaround</div>
+                        <div class="p-6 text-gray-400">Generic Look</div>
+                        <div class="p-6 text-white font-semibold bg-purple-500/5">Fast & Custom</div>
+                    </div>
+
+                    <!-- Row 3 -->
+                    <div class="grid grid-cols-3 text-center items-center text-sm">
+                        <div class="p-6 text-gray-400">Complex Jargon</div>
+                        <div class="p-6 text-gray-400">Limited Features</div>
+                        <div class="p-6 text-white font-semibold bg-purple-500/5">Modern Tech Stack</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PORTFOLIO SECTION -->
+    <section id="portfolio" class="py-24 relative overflow-hidden">
+        <div class="absolute top-1/2 left-0 w-full h-1 bg-gradient-to-r from-transparent via-purple-500 to-transparent opacity-20"></div>
+        
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <div class="text-center mb-16 reveal">
+                <span class="text-purple-400 font-mono text-sm tracking-wider uppercase">Our Portfolio</span>
+                <h2 class="text-4xl md:text-6xl font-bold mt-2">Our Work Speaks for Us.</h2>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-12">
+                
+                <!-- Project 1 -->
+                <div class="reveal group">
+                    <div class="browser-mockup border border-gray-700 shadow-2xl">
+                        <div class="browser-header">
+                            <div class="dot bg-red-500"></div>
+                            <div class="dot bg-yellow-500"></div>
+                            <div class="dot bg-green-500"></div>
+                            <div class="ml-4 px-3 py-1 bg-slate-800 rounded text-xs text-gray-400 font-mono w-full truncate">novanexusthodupuzha.store</div>
+                        </div>
+                        <div class="iframe-wrapper bg-white">
+                            <iframe src="https://novanexusthodupuzha.store" class="iframe-scaler" loading="lazy"></iframe>
+                        </div>
+                        <!-- Overlay for Click -->
+                        <a href="https://novanexusthodupuzha.store" target="_blank" class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-sm z-20">
+                            <span class="px-6 py-3 bg-white text-black rounded-full font-bold transform translate-y-4 group-hover:translate-y-0 transition-transform">Visit Live Site</span>
+                        </a>
+                    </div>
+                    <h3 class="mt-6 text-2xl font-bold">Nova Nexus</h3>
+                    <p class="text-gray-400 text-sm">E-commerce Experience</p>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="reveal group" style="transition-delay: 100ms;">
+                    <div class="browser-mockup border border-gray-700 shadow-2xl">
+                        <div class="browser-header">
+                            <div class="dot bg-red-500"></div>
+                            <div class="dot bg-yellow-500"></div>
+                            <div class="dot bg-green-500"></div>
+                            <div class="ml-4 px-3 py-1 bg-slate-800 rounded text-xs text-gray-400 font-mono w-full truncate">jjcoders00.github.io/dopamine</div>
+                        </div>
+                        <div class="iframe-wrapper bg-white">
+                            <iframe src="https://jjcoders00.github.io/dopamine" class="iframe-scaler" loading="lazy"></iframe>
+                        </div>
+                        <a href="https://jjcoders00.github.io/dopamine" target="_blank" class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-sm z-20">
+                            <span class="px-6 py-3 bg-white text-black rounded-full font-bold transform translate-y-4 group-hover:translate-y-0 transition-transform">Visit Live Site</span>
+                        </a>
+                    </div>
+                    <h3 class="mt-6 text-2xl font-bold">Dopamine</h3>
+                    <p class="text-gray-400 text-sm">Creative Agency Concept</p>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="reveal group">
+                    <div class="browser-mockup border border-gray-700 shadow-2xl">
+                        <div class="browser-header">
+                            <div class="dot bg-red-500"></div>
+                            <div class="dot bg-yellow-500"></div>
+                            <div class="dot bg-green-500"></div>
+                            <div class="ml-4 px-3 py-1 bg-slate-800 rounded text-xs text-gray-400 font-mono w-full truncate">jjcoders00.github.io/kalippattam</div>
+                        </div>
+                        <div class="iframe-wrapper bg-white">
+                            <iframe src="https://jjcoders00.github.io/kalippattam" class="iframe-scaler" loading="lazy"></iframe>
+                        </div>
+                        <a href="https://jjcoders00.github.io/kalippattam" target="_blank" class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-sm z-20">
+                            <span class="px-6 py-3 bg-white text-black rounded-full font-bold transform translate-y-4 group-hover:translate-y-0 transition-transform">Visit Live Site</span>
+                        </a>
+                    </div>
+                    <h3 class="mt-6 text-2xl font-bold">Kalippattam</h3>
+                    <p class="text-gray-400 text-sm">Cultural & Arts Showcase</p>
+                </div>
+
+                <!-- Project 4 -->
+                <div class="reveal group" style="transition-delay: 100ms;">
+                    <div class="browser-mockup border border-gray-700 shadow-2xl">
+                        <div class="browser-header">
+                            <div class="dot bg-red-500"></div>
+                            <div class="dot bg-yellow-500"></div>
+                            <div class="dot bg-green-500"></div>
+                            <div class="ml-4 px-3 py-1 bg-slate-800 rounded text-xs text-gray-400 font-mono w-full truncate">jjcoders00.github.io/church</div>
+                        </div>
+                        <div class="iframe-wrapper bg-white">
+                            <iframe src="https://jjcoders00.github.io/church" class="iframe-scaler" loading="lazy"></iframe>
+                        </div>
+                        <a href="https://jjcoders00.github.io/church" target="_blank" class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-sm z-20">
+                            <span class="px-6 py-3 bg-white text-black rounded-full font-bold transform translate-y-4 group-hover:translate-y-0 transition-transform">Visit Live Site</span>
+                        </a>
+                    </div>
+                    <h3 class="mt-6 text-2xl font-bold">Parish Connection</h3>
+                    <p class="text-gray-400 text-sm">Community Organization Portal</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- WHO IS THIS FOR -->
+    <section class="py-24 bg-gradient-to-b from-transparent to-slate-900">
+        <div class="max-w-6xl mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-16 reveal">Who needs JJ Coders?</h2>
+            
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-6">
+                <!-- Item 1 -->
+                <div class="flex flex-col items-center gap-4 reveal p-6 glass-card rounded-xl hover:bg-purple-900/20 transition-colors">
+                    <i data-lucide="briefcase" class="w-8 h-8 text-cyan-400"></i>
+                    <span class="font-semibold text-sm">Businesses</span>
+                </div>
+                <!-- Item 2 -->
+                <div class="flex flex-col items-center gap-4 reveal p-6 glass-card rounded-xl hover:bg-purple-900/20 transition-colors" style="transition-delay: 50ms;">
+                    <i data-lucide="shopping-bag" class="w-8 h-8 text-purple-400"></i>
+                    <span class="font-semibold text-sm">Shops</span>
+                </div>
+                <!-- Item 3 -->
+                <div class="flex flex-col items-center gap-4 reveal p-6 glass-card rounded-xl hover:bg-purple-900/20 transition-colors" style="transition-delay: 100ms;">
+                    <i data-lucide="youtube" class="w-8 h-8 text-red-500"></i>
+                    <span class="font-semibold text-sm">YouTubers</span>
+                </div>
+                <!-- Item 4 -->
+                <div class="flex flex-col items-center gap-4 reveal p-6 glass-card rounded-xl hover:bg-purple-900/20 transition-colors" style="transition-delay: 150ms;">
+                    <i data-lucide="rocket" class="w-8 h-8 text-indigo-400"></i>
+                    <span class="font-semibold text-sm">Startups</span>
+                </div>
+                <!-- Item 5 -->
+                <div class="flex flex-col items-center gap-4 reveal p-6 glass-card rounded-xl hover:bg-purple-900/20 transition-colors" style="transition-delay: 200ms;">
+                    <i data-lucide="user" class="w-8 h-8 text-pink-400"></i>
+                    <span class="font-semibold text-sm">Creators</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FINAL PERSUASION -->
+    <section class="py-32 relative text-center px-6">
+        <div class="max-w-4xl mx-auto space-y-8 reveal">
+            <h2 class="text-4xl md:text-6xl font-bold leading-tight">
+                Your website should look expensive.<br>
+                <span class="text-gray-500">It doesn't have to be.</span>
+            </h2>
+            
+            <p class="text-lg text-gray-400">
+                Stop settling for templates. Start building your legacy.
+            </p>
+            
+            <div class="pt-8">
+                <button class="group relative px-10 py-5 bg-white text-black font-bold text-xl rounded-full overflow-hidden transition-all hover:scale-105 shadow-[0_0_40px_-10px_rgba(255,255,255,0.5)]">
+                    <span class="relative z-10"><a href="build.register.html">Get Your Site Now</a></span>
+                    <div class="absolute inset-0 bg-gradient-to-r from-purple-400 to-cyan-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                </button>
+                <p class="mt-4 text-xs text-gray-500 font-mono">Limited slots available for this month.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-gray-900 py-12 text-center text-gray-600 text-sm">
+        <div class="flex items-center justify-center gap-2 mb-4">
+            <i data-lucide="code-2" class="w-5 h-5"></i>
+            <span class="font-bold text-gray-400">JJ CODERS</span>
+        </div>
+        <p>&copy; 2024 JJ Coders Build. All rights reserved.</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Intersection Observer for Animations
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Optional: Smooth scale effect for iframe hover on mobile
+        // Prevents jumpiness
+        const cards = document.querySelectorAll('.browser-mockup');
+        cards.forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                const iframe = card.querySelector('iframe');
+                if(iframe) {
+                   // iframe.style.pointerEvents = "auto";
+                }
+            });
+        });
+    </script>
 </body>
 </html>

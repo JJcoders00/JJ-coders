@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>JJ Coders Admin</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
+
+<style>
+.badge-new { background:#2563eb }
+.badge-progress { background:#f59e0b }
+.badge-completed { background:#16a34a }
+</style>
+</head>
+
+<body class="bg-slate-950 text-gray-200 min-h-screen p-6">
+
+<h1 class="text-3xl font-bold mb-6">JJ Coders – Admin Dashboard</h1>
+
+<!-- Tabs -->
+<div class="flex gap-3 mb-6 flex-wrap">
+  <button onclick="setTab('new')" class="bg-blue-600 px-4 py-2 rounded">New</button>
+  <button onclick="setTab('progress')" class="bg-yellow-600 px-4 py-2 rounded">In Progress</button>
+  <button onclick="setTab('completed')" class="bg-green-600 px-4 py-2 rounded">Completed</button>
+  <button onclick="setTab('all')" class="bg-gray-700 px-4 py-2 rounded">All</button>
+</div>
+
+<!-- Table -->
+<div class="overflow-x-auto">
+<table class="w-full border border-white/10 rounded-lg overflow-hidden">
+<thead class="bg-slate-900 text-sm">
+<tr>
+<th class="p-3 text-left">Name</th>
+<th>Email</th>
+<th>WhatsApp</th>
+<th>Type</th>
+<th>Status</th>
+<th>Date</th>
+<th>Actions</th>
+</tr>
+</thead>
+<tbody id="tableBody"></tbody>
+</table>
+</div>
+
+<script type="module">
+lucide.createIcons();
+
+// 🔥 Firebase imports
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
+import {
+  getFirestore,
+  collection,
+  getDocs,
+  doc,
+  updateDoc,
+  deleteDoc
+} from "https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js";
+
+// 🔥 Firebase config
+const firebaseConfig = {
+  apiKey: "AIzaSyCnNTZn9BWahRW5bBcOcHQuZbGxfiMM4WE",
+  authDomain: "jjcoders-build.firebaseapp.com",
+  projectId: "jjcoders-build",
+  storageBucket: "jjcoders-build.firebasestorage.app",
+  messagingSenderId: "858267112704",
+  appId: "1:858267112704:web:0132605e782772c128cfe5"
+};
+
+// Init Firebase
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+let currentTab = "new";
+let allData = [];
+
+// 🔁 Change tab
+window.setTab = (tab) => {
+  currentTab = tab;
+  render();
+};
+
+// 🔄 Load data
+async function loadData() {
+  const snap = await getDocs(collection(db, "registrations"));
+  allData = snap.docs.map(d => ({
+    id: d.id,
+    ...d.data()
+  }));
+  render();
+}
+
+// 🎯 Render table
+function render() {
+  const body = document.getElementById("tableBody");
+  body.innerHTML = "";
+
+  let filtered = allData.filter(r => {
+    if (currentTab === "new") return !r.seen;
+    if (currentTab === "progress") return r.status === "progress";
+    if (currentTab === "completed") return r.status === "completed";
+    return true;
+  });
+
+  // Sort newest first
+  filtered.sort((a,b) =>
+    (b.createdAt?.seconds || 0) - (a.createdAt?.seconds || 0)
+  );
+
+  if (filtered.length === 0) {
+    body.innerHTML = `
+      <tr>
+        <td colspan="7" class="p-6 text-center text-gray-500">
+          No records found
+        </td>
+      </tr>`;
+    return;
+  }
+
+  filtered.forEach(r => {
+    const tr = document.createElement("tr");
+    tr.className = "border-t border-white/10 hover:bg-white/5";
+
+    tr.innerHTML = `
+      <td class="p-3">${r.fullname || '-'}</td>
+      <td>${r.email || '-'}</td>
+      <td>${r.whatsapp || '-'}</td>
+      <td>${r.type || '-'}</td>
+      <td>
+        <span class="px-2 py-1 rounded text-xs badge-${r.status || 'new'}">
+          ${r.status || 'new'}
+        </span>
+      </td>
+      <td>
+        ${r.createdAt?.seconds
+          ? new Date(r.createdAt.seconds * 1000).toLocaleString()
+          : '-'}
+      </td>
+      <td class="space-x-2 space-y-1">
+        <button onclick="markSeen('${r.id}')" class="text-xs bg-blue-600 px-2 py-1 rounded">
+          Seen
+        </button>
+        <button onclick="setStatus('${r.id}','progress')" class="text-xs bg-yellow-600 px-2 py-1 rounded">
+          Progress
+        </button>
+        <button onclick="setStatus('${r.id}','completed')" class="text-xs bg-green-600 px-2 py-1 rounded">
+          Done
+        </button>
+        <button onclick="deleteEntry('${r.id}')" class="text-xs bg-red-700 hover:bg-red-800 px-2 py-1 rounded">
+          Delete
+        </button>
+      </td>
+    `;
+    body.appendChild(tr);
+  });
+}
+
+// 🟢 Mark seen
+window.markSeen = async (id) => {
+  await updateDoc(doc(db,"registrations",id), { seen:true });
+  loadData();
+};
+
+// 🟡 Update status
+window.setStatus = async (id,status) => {
+  await updateDoc(doc(db,"registrations",id), {
+    status: status,
+    seen: true
+  });
+  loadData();
+};
+
+// 🔴 Delete entry (SAFE)
+window.deleteEntry = async (id) => {
+  const ok = confirm("⚠️ Are you sure?\nThis submission will be permanently deleted.");
+  if (!ok) return;
+
+  await deleteDoc(doc(db,"registrations",id));
+  loadData();
+};
+
+// Start app
+loadData();
+</script>
+
+</body>
+</html>
